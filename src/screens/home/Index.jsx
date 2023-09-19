@@ -1,31 +1,66 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-import {SafeAreaView, StyleSheet, Text, View} from 'react-native';
+import {Image, SafeAreaView, StyleSheet, Text, View} from 'react-native';
 //import material icons
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+//import material icons
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import Cardform from '../../components/Card';
+import Schedule from '../../components/Schedule';
+import DateCard from '../../components/DateCard';
+import Floatingbutton from '../../components/Floatingbutton';
 
 export default function HomeScreen() {
   return (
-    <SafeAreaView style={{padding: 15}}>
+    <SafeAreaView style={{padding: 10}}>
       <View
         style={{
           flex: 1,
           flexDirection: 'row',
           justifyContent: 'space-between',
           alignItems: 'center',
-          marginTop: 40,
+          marginTop: 10,
         }}>
-        <MaterialCommunityIcons
-          name="star"
+        <MaterialIcons
+          name="person"
           style={styles.tabBarIconInfoCenter}
-          size={20}
+          size={30}
+          color="#fff"
         />
-        <MaterialCommunityIcons
-          name="star"
-          style={{width: 50, height: 50}}
-          size={20}
+        <MaterialIcons
+          name="info"
+          style={styles.tabBarIconInfoCenter}
+          size={30}
+          color="#fff"
         />
-        {/* <Text style={styles.labelText}>PRODUK DESA</Text> */}
+      </View>
+      <View style={styles.container}>
+        <Image
+          source={require('../../assets/icons/logojam.png')} // Adjust the path to your logo image
+          style={styles.logo}
+        />
+      </View>
+      <View style={styles.dateContainer}>
+        <MaterialIcons name="today" style={styles.postIcon} size={20} />
+        <Text style={styles.dateText}>28 AUG 2023</Text>
+      </View>
+      <View>
+        <Cardform />
+      </View>
+      <View style={styles.postContainer}>
+        <Text style={styles.postText}>UPCOMING SCHEDULE</Text>
+      </View>
+      <View>
+        <Schedule />
+      </View>
+      <View style={styles.dueDateContainer}>
+        <Text style={styles.postText}>UPCOMING SCHEDULE</Text>
+      </View>
+      <View>
+        <DateCard />
+      </View>
+      <View style={{flex: 1}}>
+        {/* Konten lain dalam komponen */}
+        <Floatingbutton />
       </View>
     </SafeAreaView>
   );
@@ -51,13 +86,55 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   tabBarIconInfoCenter: {
-    // top: -20,
-
     justifyContent: 'center',
     alignItems: 'center',
-    width: 55,
-    height: 55,
-    borderRadius: 35,
-    backgroundColor: '#D39001',
+    width: 30,
+    height: 30,
+    borderRadius: 45,
+    backgroundColor: '#483729',
+  },
+  container: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    flex: 1,
+  },
+  logo: {
+    top: 30,
+    width: 50, // Adjust the width as needed
+    height: 50, // Adjust the height as needed
+  },
+  dateContainer: {
+    marginTop: 60,
+    flexDirection: 'row',
+  },
+  dateIcon: {
+    marginRight: 5,
+    color: '#333333',
+  },
+  dateText: {
+    color: '#333333',
+    fontWeight: 'bold',
+  },
+  cardContainer: {
+    // top: 100,
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  postContainer: {
+    marginTop: 8,
+    flexDirection: 'row',
+  },
+  postIcon: {
+    marginRight: 5,
+    color: '#333333',
+  },
+  postText: {
+    color: '#333333',
+    fontWeight: 'bold',
+  },
+  dueDateContainer: {
+    marginTop: 5,
+    flexDirection: 'row',
   },
 });
