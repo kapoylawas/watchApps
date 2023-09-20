@@ -1,38 +1,19 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import {Image, SafeAreaView, StyleSheet, Text, View} from 'react-native';
-//import material icons
+
 //import material icons
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Cardform from '../../components/Card';
 import Schedule from '../../components/Schedule';
 import DateCard from '../../components/DateCard';
 import Floatingbutton from '../../components/Floatingbutton';
+import ButtonBiodata from '../../components/ButtonBiodata';
 
 export default function HomeScreen() {
   return (
     <SafeAreaView style={{padding: 10}}>
-      <View
-        style={{
-          flex: 1,
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          marginTop: 10,
-        }}>
-        <MaterialIcons
-          name="person"
-          style={styles.tabBarIconInfoCenter}
-          size={30}
-          color="#fff"
-        />
-        <MaterialIcons
-          name="info"
-          style={styles.tabBarIconInfoCenter}
-          size={30}
-          color="#fff"
-        />
-      </View>
+      <ButtonBiodata />
       <View style={styles.container}>
         <Image
           source={require('../../assets/icons/logojam.png')} // Adjust the path to your logo image
@@ -85,14 +66,6 @@ const styles = StyleSheet.create({
     color: '#333333',
     fontWeight: 'bold',
   },
-  tabBarIconInfoCenter: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: 30,
-    height: 30,
-    borderRadius: 45,
-    backgroundColor: '#483729',
-  },
   container: {
     alignItems: 'center',
     justifyContent: 'center',
@@ -104,7 +77,7 @@ const styles = StyleSheet.create({
     height: 50, // Adjust the height as needed
   },
   dateContainer: {
-    marginTop: 60,
+    marginTop: 50,
     flexDirection: 'row',
   },
   dateIcon: {
