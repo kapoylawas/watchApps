@@ -62,6 +62,7 @@ const styles = StyleSheet.create({
     borderRadius: 150, // Mengatur border radius untuk membuat card menjadi oval
     justifyContent: 'center',
     alignItems: 'center',
+    padding: 10,
   },
   text: {
     color: '#8E6413', // Warna emas
