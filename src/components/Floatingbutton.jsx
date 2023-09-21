@@ -1,22 +1,20 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import React from 'react';
+import {useNavigation} from '@react-navigation/native';
 import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
 
-class Floatingbutton extends React.Component {
-  render() {
-    return (
-      <View style={styles.container}>
-        {/* Konten lain dalam komponen */}
-        <TouchableOpacity style={styles.button} onPress={this.handlePress}>
-          <Text style={styles.buttonText}>+</Text>
-        </TouchableOpacity>
-      </View>
-    );
-  }
-
-  handlePress = () => {
-    // Logika yang ingin Anda jalankan ketika tombol ditekan
-    console.log('Tombol ditekan!');
-  };
+export default function Floatingbutton() {
+  const navigation = useNavigation();
+  return (
+    <View style={styles.container}>
+      {/* Konten lain dalam komponen */}
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => navigation.navigate('Quote')}>
+        <Text style={styles.buttonText}>+</Text>
+      </TouchableOpacity>
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
@@ -41,5 +39,3 @@ const styles = StyleSheet.create({
     fontSize: 30,
   },
 });
-
-export default Floatingbutton;
