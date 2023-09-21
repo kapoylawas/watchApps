@@ -29,7 +29,7 @@ const ButtonBiodata = () => {
           color="#fff"
         />
       </TouchableOpacity>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={() => navigation.navigate('Info')}>
         <MaterialIcons
           name="info"
           style={{
