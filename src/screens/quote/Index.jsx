@@ -38,7 +38,7 @@ export default function QuoteScreen() {
           style={{
             justifyContent: 'center',
             alignItems: 'center',
-            marginTop: 30,
+            marginTop: 10,
           }}>
           <Text
             style={{

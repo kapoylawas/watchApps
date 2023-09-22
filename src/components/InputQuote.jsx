@@ -1,7 +1,7 @@
 import CheckBox from '@react-native-community/checkbox';
 import React, {useEffect, useRef, useState} from 'react';
 import {Keyboard, StyleSheet, Text, TextInput, View} from 'react-native';
-// import {Checkbox} from 'react-native-paper';
+import ButtonSave from './ButtonSave';
 
 const InputQuote = props => {
   const [data, setData] = useState('');
@@ -25,7 +25,7 @@ const InputQuote = props => {
 
   return (
     // eslint-disable-next-line react-native/no-inline-styles
-    <View style={{flex: 1}}>
+    <View style={{flex: 1, paddingBottom: 30}}>
       <View style={style.container}>
         <Text style={style.text}>NAME</Text>
       </View>
@@ -49,20 +49,69 @@ const InputQuote = props => {
           placeholder="0812345678xxx"
           // Tambahkan properti atau logika lain yang Anda butuhkan di sini
         />
-
-        {/* <Checkbox style={style.inputRight} value={data} /> */}
         <CheckBox
           style={style.inputRight}
           value={isChecked}
           onValueChange={handleCheckBoxChange}
         />
         {/* <Text>{isChecked ? 'Checked' : 'Unchecked'}</Text> */}
-        {/* <TextInput
-          style={style.inputRight}
-          placeholder="Input Kanan"
-          // Tambahkan properti atau logika lain yang Anda butuhkan di sini
-        /> */}
       </View>
+      <View style={style.container}>
+        <Text style={style.textLeft}>Email</Text>
+        <Text style={style.textRight}>Expiry Dates</Text>
+      </View>
+      <View style={style.container}>
+        <TextInput
+          style={style.inputLeft}
+          placeholder="jhondoe@gmail.com"
+          // Tambahkan properti atau logika lain yang Anda butuhkan di sini
+        />
+        <TextInput
+          style={style.inputRight}
+          placeholder="dd/mm/y"
+          // Tambahkan properti atau logika lain yang Anda butuhkan di sini
+        />
+      </View>
+      <View style={style.container}>
+        <Text style={style.text}>Select Product</Text>
+      </View>
+      <View style={style.container}>
+        <TextInput
+          ref={textInputRef}
+          value={data}
+          onChangeText={text => setData(text)}
+          style={style.inputLeft}
+          // Tambahkan properti atau logika lain yang Anda butuhkan di sini
+        />
+      </View>
+      <View style={style.container}>
+        <Text style={style.textLeft}>Price</Text>
+      </View>
+      <View style={style.container}>
+        <TextInput
+          style={style.inputLeft}
+          placeholder="jhondoe@gmail.com"
+          // Tambahkan properti atau logika lain yang Anda butuhkan di sini
+        />
+        <TextInput
+          style={style.inputRight}
+          placeholder="dd/mm/y"
+          // Tambahkan properti atau logika lain yang Anda butuhkan di sini
+        />
+      </View>
+      <View style={style.container}>
+        <Text style={style.text}>Remark</Text>
+      </View>
+      <View style={style.container}>
+        <TextInput
+          ref={textInputRef}
+          value={data}
+          onChangeText={text => setData(text)}
+          style={style.inputLeft}
+          // Tambahkan properti atau logika lain yang Anda butuhkan di sini
+        />
+      </View>
+      <ButtonSave text="Login" color="#694C20" />
     </View>
   );
 };
