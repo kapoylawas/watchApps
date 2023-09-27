@@ -10,6 +10,7 @@ const Tab = createBottomTabNavigator();
 // import
 //import screens Home
 import Home from '../screens/home/Index';
+import Leads from '../screens/leads/Index';
 
 export default function BottomTabsNavigation() {
   return (
@@ -18,9 +19,10 @@ export default function BottomTabsNavigation() {
       screenOptions={styles.screenOptionsTab}>
       <Tab.Screen
         name="Leads"
-        component={Home}
+        component={Leads}
         options={{
           tabBarShowLabel: false,
+          tabBarStyle: {display: 'none'},
           tabBarIcon: ({focused}) => (
             <View style={styles.tabBarIconCenter}>
               <Image

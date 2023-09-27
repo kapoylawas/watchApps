@@ -7,6 +7,7 @@ const Stack = createNativeStackNavigator();
 
 //import BottomTabsNavigation
 import BottomTabsNavigation from './BottomTabsNavigation';
+import LeadsScreen from '../screens/leads/Index';
 
 export default function Navigation() {
   return (
