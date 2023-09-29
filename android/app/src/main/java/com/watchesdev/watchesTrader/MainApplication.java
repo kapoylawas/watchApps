@@ -1,4 +1,4 @@
-package com.wacthapps;
+package com.watchesdev.watchesTrader;
 
 import android.app.Application;
 import com.facebook.react.PackageList;

@@ -7,11 +7,11 @@
 #define TIMEOUT_SECONDS 600
 #define TEXT_TO_LOOK_FOR @"Welcome to React"
 
-@interface wacthAppsTests : XCTestCase
+@interface watchesTraderTests : XCTestCase
 
 @end
 
-@implementation wacthAppsTests
+@implementation watchesTraderTests
 
 - (BOOL)findSubviewInView:(UIView *)view matching:(BOOL (^)(UIView *view))test
 {

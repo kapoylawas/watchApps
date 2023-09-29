@@ -73,9 +73,9 @@ android {
 
     compileSdkVersion rootProject.ext.compileSdkVersion
 
-    namespace "com.wacthapps"
+    namespace "com.watchesdev.watchesTrader"
     defaultConfig {
-        applicationId "com.wacthapps"
+        applicationId "com.watchesdev.watchesTrader"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1

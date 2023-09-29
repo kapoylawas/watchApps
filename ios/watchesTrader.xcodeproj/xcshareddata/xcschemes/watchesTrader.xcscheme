@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-               BuildableName = "wacthApps.app"
-               BlueprintName = "wacthApps"
-               ReferencedContainer = "container:wacthApps.xcodeproj">
+               BuildableName = "watchesTrader.app"
+               BlueprintName = "watchesTrader"
+               ReferencedContainer = "container:watchesTrader.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "00E356ED1AD99517003FC87E"
-               BuildableName = "wacthAppsTests.xctest"
-               BlueprintName = "wacthAppsTests"
-               ReferencedContainer = "container:wacthApps.xcodeproj">
+               BuildableName = "watchesTraderTests.xctest"
+               BlueprintName = "watchesTraderTests"
+               ReferencedContainer = "container:watchesTrader.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -55,9 +55,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "wacthApps.app"
-            BlueprintName = "wacthApps"
-            ReferencedContainer = "container:wacthApps.xcodeproj">
+            BuildableName = "watchesTrader.app"
+            BlueprintName = "watchesTrader"
+            ReferencedContainer = "container:watchesTrader.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -72,9 +72,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "wacthApps.app"
-            BlueprintName = "wacthApps"
-            ReferencedContainer = "container:wacthApps.xcodeproj">
+            BuildableName = "watchesTrader.app"
+            BlueprintName = "watchesTrader"
+            ReferencedContainer = "container:watchesTrader.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

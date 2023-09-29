@@ -2,7 +2,6 @@
 import {useNavigation} from '@react-navigation/native';
 import React from 'react';
 import {
-  FlatList,
   ScrollView,
   StyleSheet,
   Text,
@@ -10,6 +9,7 @@ import {
   View,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import LeadsButton from '../../components/LeadsButton';
 
 export default function LeadsScreen() {
   const navigation = useNavigation();
@@ -26,6 +26,7 @@ export default function LeadsScreen() {
           justifyContent: 'space-between',
           alignItems: 'center',
           marginTop: 10,
+          padding: 15,
         }}>
         <TouchableOpacity onPress={goToHome}>
           <Icon
@@ -64,7 +65,7 @@ export default function LeadsScreen() {
           flexDirection: 'row',
           justifyContent: 'space-between',
           alignItems: 'center',
-          marginTop: 10,
+          marginTop: 1,
         }}>
         <TouchableOpacity onPress={goToHome}>
           <Icon
@@ -83,6 +84,7 @@ export default function LeadsScreen() {
             color="#000"
           />
         </TouchableOpacity>
+        {/* bisa scroll */}
         <ScrollView
           style={{marginRight: 5}}
           horizontal={true}
@@ -92,7 +94,51 @@ export default function LeadsScreen() {
               style={{
                 justifyContent: 'center',
                 alignItems: 'center',
-                width: 80,
+                width: 100,
+                height: 50,
+                borderRadius: 10,
+                backgroundColor: '#483729',
+                padding: 2,
+                marginLeft: 10,
+              }}
+              size={38}>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                  padding: 15,
+                }}>
+                <Text
+                  style={{
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    color: '#fff',
+                  }}>
+                  Leads
+                </Text>
+                <View
+                  color="#fff"
+                  style={{
+                    // justifyContent: 'center',
+                    alignItems: 'center',
+                    width: 25,
+                    height: 24,
+                    borderRadius: 100,
+                    backgroundColor: '#D39001',
+                    marginLeft: 10,
+                  }}>
+                  <Text style={{alignItems: 'center', color: '#fff'}}>1</Text>
+                </View>
+              </View>
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={goToHome}>
+            <View
+              style={{
+                justifyContent: 'center',
+                alignItems: 'center',
+                width: 100,
                 height: 50,
                 borderRadius: 10,
                 backgroundColor: '#E7E5E0',
@@ -104,7 +150,7 @@ export default function LeadsScreen() {
               <Text
                 color="#000"
                 style={{justifyContent: 'center', alignItems: 'center'}}>
-                Leads
+                In Work
               </Text>
             </View>
           </TouchableOpacity>
@@ -113,7 +159,7 @@ export default function LeadsScreen() {
               style={{
                 justifyContent: 'center',
                 alignItems: 'center',
-                width: 80,
+                width: 100,
                 height: 50,
                 borderRadius: 10,
                 backgroundColor: '#E7E5E0',
@@ -125,76 +171,12 @@ export default function LeadsScreen() {
               <Text
                 color="#000"
                 style={{justifyContent: 'center', alignItems: 'center'}}>
-                Leads
-              </Text>
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={goToHome}>
-            <View
-              style={{
-                justifyContent: 'center',
-                alignItems: 'center',
-                width: 80,
-                height: 50,
-                borderRadius: 10,
-                backgroundColor: '#E7E5E0',
-                padding: 2,
-                marginLeft: 10,
-              }}
-              size={38}
-              color="#000">
-              <Text
-                color="#000"
-                style={{justifyContent: 'center', alignItems: 'center'}}>
-                Leads
-              </Text>
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={goToHome}>
-            <View
-              style={{
-                justifyContent: 'center',
-                alignItems: 'center',
-                width: 80,
-                height: 50,
-                borderRadius: 10,
-                backgroundColor: '#E7E5E0',
-                padding: 2,
-                marginLeft: 10,
-              }}
-              size={38}
-              color="#000">
-              <Text
-                color="#000"
-                style={{justifyContent: 'center', alignItems: 'center'}}>
-                Leads
-              </Text>
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={goToHome}>
-            <View
-              style={{
-                justifyContent: 'center',
-                alignItems: 'center',
-                width: 80,
-                height: 50,
-                borderRadius: 10,
-                backgroundColor: '#E7E5E0',
-                padding: 2,
-                marginLeft: 10,
-              }}
-              size={38}
-              color="#000">
-              <Text
-                color="#000"
-                style={{justifyContent: 'center', alignItems: 'center'}}>
-                Leads
+                Deals
               </Text>
             </View>
           </TouchableOpacity>
         </ScrollView>
       </View>
-
       <View
         style={{
           justifyContent: 'center',
@@ -211,6 +193,7 @@ export default function LeadsScreen() {
           />
         </View>
       </View>
+      <LeadsButton />
     </View>
   );
 }
@@ -228,5 +211,6 @@ const styles = StyleSheet.create({
     color: '#8E6413', // Warna emas
     textAlign: 'center', // Center-align the text
     fontSize: 15,
+    fontWeight: 'bold',
   },
 });
