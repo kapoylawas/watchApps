@@ -17,7 +17,7 @@ const LoginButton = props => {
         elevation: 2,
       }}
       onPress={() => navigation.navigate('HomeScreen')}>
-      <Text style={{color: '#fff', textAlign: 'center', fontWeight: 'bold'}}>
+      <Text style={{color: '#fff', textAlign: 'center', letterSpacing: 2}}>
         {props.text}
       </Text>
     </TouchableOpacity>
