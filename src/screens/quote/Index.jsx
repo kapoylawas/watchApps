@@ -1,7 +1,7 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import {useNavigation} from '@react-navigation/native';
-import {Text, TouchableOpacity, View} from 'react-native';
+import {Image, SafeAreaView, Text, TouchableOpacity, View} from 'react-native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {ScrollView} from 'react-native';
 import InputQuote from '../../components/InputQuote';
@@ -9,28 +9,18 @@ import InputQuote from '../../components/InputQuote';
 export default function QuoteScreen() {
   const navigation = useNavigation();
   return (
-    <View style={{flex: 1, backgroundColor: '#FFFFFF'}}>
-      <ScrollView>
-        <View
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            marginTop: 10,
-          }}>
+    <SafeAreaView
+      style={{paddingTop: 23, paddingHorizontal: 23, paddingBottom: 0}}>
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <View>
           <TouchableOpacity onPress={() => navigation.navigate('HomeScreen')}>
-            <MaterialIcons
-              name="close"
+            <Image
+              source={require('../../assets/watches-trader/icon/close.png')}
               style={{
-                justifyContent: 'center',
-                alignItems: 'center',
-                width: 30,
-                height: 30,
-                borderRadius: 45,
-                padding: -1,
+                height: 20,
+                width: 20,
+                resizeMode: 'contain',
               }}
-              size={30}
-              color="#000"
             />
           </TouchableOpacity>
         </View>
@@ -38,19 +28,20 @@ export default function QuoteScreen() {
           style={{
             justifyContent: 'center',
             alignItems: 'center',
-            marginTop: 10,
+            marginTop: 30,
           }}>
           <Text
             style={{
               fontSize: 20,
               fontWeight: 'bold',
               color: '#483729',
+              letterSpacing: 1,
             }}>
             QUOTE TO :
           </Text>
         </View>
         <InputQuote />
       </ScrollView>
-    </View>
+    </SafeAreaView>
   );
 }
