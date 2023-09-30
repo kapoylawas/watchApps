@@ -67,33 +67,3 @@ export default function FormLeadsScreen() {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  card: {
-    borderRadius: 10,
-    padding: 16,
-    flexDirection: 'row', // Untuk mengatur teks dan gambar secara horizontal
-    alignItems: 'center',
-  },
-  image: {
-    width: 50,
-    height: 50,
-    borderRadius: 40, // Untuk membuat gambar menjadi lingkaran
-    marginRight: 16, // Jarak antara gambar dan teks
-  },
-  textContainer: {
-    flex: 1, // Untuk memungkinkan teks mengisi sisa ruang yang tersedia
-  },
-  text: {
-    color: 'white', // Warna teks
-    fontSize: 18,
-    fontWeight: 'bold',
-  },
-  containerUser: {
-    flexDirection: 'row',
-  },
-  iconUser: {
-    marginRight: 10,
-    color: '#FFF',
-  },
-});
