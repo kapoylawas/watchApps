@@ -34,10 +34,7 @@ export default function BottomTabsNavigation() {
                     : styles.tabBarIconImage
                 }
               />
-              <Text
-                style={focused ? styles.tabBarTextActive : styles.tabBarText}>
-                LEADS
-              </Text>
+              <Text style={styles.tabBarText}>LEADS</Text>
             </View>
           ),
         }}
@@ -58,10 +55,7 @@ export default function BottomTabsNavigation() {
                     : styles.tabBarIconImage
                 }
               />
-              <Text
-                style={focused ? styles.tabBarTextActive : styles.tabBarText}>
-                INVOICE
-              </Text>
+              <Text style={styles.tabBarText}>INVOICE</Text>
             </View>
           ),
         }}
@@ -73,21 +67,13 @@ export default function BottomTabsNavigation() {
         options={{
           tabBarShowLabel: false,
           tabBarIcon: ({focused}) => (
-            <View
-              style={
-                focused
-                  ? styles.tabBarIconInfoCenterActive
-                  : styles.tabBarIconInfoCenter
-              }>
+            <View style={styles.tabBarIconInfoCenterActive}>
               <Image
                 source={require('../assets/icons/home.png')}
                 resizeMode="contain"
                 style={styles.tabBarIconInfo}
               />
-              <Text
-                style={focused ? styles.tabBarTextActive : styles.tabBarText}>
-                HOME
-              </Text>
+              <Text style={styles.tabBarText}>HOME</Text>
             </View>
           ),
         }}
@@ -108,10 +94,7 @@ export default function BottomTabsNavigation() {
                     : styles.tabBarIconImage
                 }
               />
-              <Text
-                style={focused ? styles.tabBarTextActive : styles.tabBarText}>
-                SCHEDULE
-              </Text>
+              <Text style={styles.tabBarText}>SCHEDULE</Text>
             </View>
           ),
         }}
