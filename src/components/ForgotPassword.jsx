@@ -19,7 +19,12 @@ function ForgotPassword() {
       <TouchableOpacity>
         <Image
           source={require('../assets/watches-trader/icon/signin.png')}
-          style={{marginVertical: 10, height: 25, resizeMode: 'contain'}}
+          style={{
+            marginVertical: 10,
+            height: 25,
+            width: 25,
+            resizeMode: 'contain',
+          }}
         />
       </TouchableOpacity>
     </View>

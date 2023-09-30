@@ -12,7 +12,8 @@ import ButtonBiodata from '../../components/ButtonBiodata';
 
 export default function HomeScreen() {
   return (
-    <SafeAreaView style={{padding: 10}}>
+    <SafeAreaView
+      style={{paddingTop: 23, paddingHorizontal: 23, paddingBottom: 23}}>
       <ButtonBiodata />
       <View style={styles.container}>
         <Image
@@ -21,7 +22,7 @@ export default function HomeScreen() {
         />
       </View>
       <View style={styles.dateContainer}>
-        <MaterialIcons name="today" style={styles.postIcon} size={20} />
+        <MaterialIcons name="today" style={styles.dateIcon} size={20} />
         <Text style={styles.dateText}>28 AUG 2023</Text>
       </View>
       <View>
@@ -34,12 +35,15 @@ export default function HomeScreen() {
         <Schedule />
       </View>
       <View style={styles.dueDateContainer}>
-        <Text style={styles.postText}>UPCOMING SCHEDULE</Text>
+        <Text style={styles.postText}>DUE DATE</Text>
       </View>
       <View>
         <DateCard />
       </View>
       <View style={{flex: 1}}>
+        <Text>See All</Text>
+      </View>
+      <View>
         {/* Konten lain dalam komponen */}
         <Floatingbutton />
       </View>
@@ -70,44 +74,49 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     flex: 1,
+    marginTop: 30,
   },
   logo: {
-    top: 30,
-    width: 50, // Adjust the width as needed
-    height: 50, // Adjust the height as needed
+    width: 120, // Adjust the width as needed
+    height: 120, // Adjust the height as needed
+    resizeMode: 'contain',
   },
   dateContainer: {
-    marginTop: 50,
+    marginTop: 60,
     flexDirection: 'row',
+    marginBottom: 5,
   },
   dateIcon: {
     marginRight: 5,
-    color: '#333333',
+    color: '#483729',
   },
   dateText: {
-    color: '#333333',
+    color: '#483729',
     fontWeight: 'bold',
+    letterSpacing: 1,
   },
   cardContainer: {
-    // top: 100,
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
   },
   postContainer: {
-    marginTop: 8,
+    marginTop: 20,
+    marginBottom: 5,
     flexDirection: 'row',
   },
   postIcon: {
     marginRight: 5,
-    color: '#333333',
+    color: '#483729',
   },
   postText: {
-    color: '#333333',
+    color: '#483729',
     fontWeight: 'bold',
+    letterSpacing: 1,
   },
   dueDateContainer: {
-    marginTop: 5,
+    marginTop: 20,
+    marginBottom: 5,
     flexDirection: 'row',
   },
 });

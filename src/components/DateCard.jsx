@@ -7,14 +7,18 @@ const DateCard = () => {
     <View style={styles.container}>
       <LinearGradient
         colors={['#D39001', '#694C20']} // Warna gradien untuk kartu di kiri
-        style={styles.cardLeft}>
-        <Text style={styles.cardText}>Kartu Kiri</Text>
+        style={styles.cardLeft}
+        useAngle={true}
+        angle={135}>
+        <Text style={styles.cardText}>-</Text>
       </LinearGradient>
 
       <LinearGradient
         colors={['#D39001', '#694C20']} // Warna gradien untuk kartu di kanan
-        style={styles.cardRight}>
-        <Text style={styles.cardText}>Kartu Kanan</Text>
+        style={styles.cardRight}
+        useAngle={true}
+        angle={135}>
+        <Text style={styles.cardText}>-</Text>
       </LinearGradient>
     </View>
   );
@@ -25,20 +29,18 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'space-between',
-    padding: 6,
-    marginTop: -5,
   },
   cardLeft: {
     flex: 1,
     borderRadius: 8,
-    padding: 16,
+    padding: 15,
     marginRight: 8,
     height: 80,
   },
   cardRight: {
     flex: 1,
     borderRadius: 8,
-    padding: 16,
+    padding: 15,
     marginLeft: 8,
     height: 80,
   },

@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import {View, Text, TouchableOpacity, Image, StyleSheet} from 'react-native';
 
 import React from 'react';
@@ -20,18 +21,32 @@ export default function Schedule({data}) {
   return (
     <LinearGradient
       colors={['#D39001', '#694C20']} // Warna gradient
-      style={styles.card}>
-      <View style={styles.textContainer}>
-        <Text style={styles.text}>Meet with Mr.Ramzy</Text>
-        <View style={styles.containerUser}>
-          <MaterialIcons name="map" style={styles.iconUser} size={28} />
-          <Text style={styles.text}>Surabaya</Text>
+      style={styles.card}
+      useAngle={true}
+      angle={135}>
+      <View style={styles.rowItemCenter}>
+        <View style={styles.textContainer}>
+          <Text style={styles.title}>
+            <Text>Meet with </Text>
+            <Text style={{fontWeight: 'bold'}}>Mr. Ramzy</Text>
+          </Text>
+          <View style={styles.row}>
+            <Image
+              source={require('../assets/watches-trader/icon/loc-1.png')}
+              style={{
+                height: 30,
+                width: 30,
+                resizeMode: 'contain',
+                marginRight: 7,
+              }}
+            />
+            <Text style={styles.subTitle}>
+              Excelso - SUB A Yani {'\n'}5 September 2023 - 12:30
+            </Text>
+          </View>
         </View>
+        <MaterialIcons name="launch" size={40} style={styles.image} />
       </View>
-      <Image
-        source={require('../assets/icons/newspaper.png')}
-        style={styles.image}
-      />
     </LinearGradient>
   );
 }
@@ -39,26 +54,36 @@ export default function Schedule({data}) {
 const styles = StyleSheet.create({
   card: {
     borderRadius: 10,
-    padding: 16,
+    padding: 15,
     flexDirection: 'row', // Untuk mengatur teks dan gambar secara horizontal
     alignItems: 'center',
   },
   image: {
-    width: 50,
-    height: 50,
-    borderRadius: 40, // Untuk membuat gambar menjadi lingkaran
-    marginRight: 16, // Jarak antara gambar dan teks
+    color: 'white',
+    marginLeft: 5,
   },
   textContainer: {
-    flex: 1, // Untuk memungkinkan teks mengisi sisa ruang yang tersedia
+    flex: 1,
   },
-  text: {
+  title: {
     color: 'white', // Warna teks
     fontSize: 18,
-    fontWeight: 'bold',
+    marginBottom: 15,
   },
-  containerUser: {
+  subTitle: {
+    marginTop: -3,
+    color: 'white',
+    marginBottom: 10,
+    width: 230,
+    lineHeight: 20,
+  },
+  row: {
     flexDirection: 'row',
+  },
+  rowItemCenter: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
   },
   iconUser: {
     marginRight: 10,

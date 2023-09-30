@@ -1,16 +1,20 @@
+/* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import {Text, StyleSheet, View} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 const Card = () => {
   return (
     <LinearGradient
       colors={['#D39001', '#694C20']} // Warna gradient
-      style={styles.card}>
+      style={styles.card}
+      useAngle={true}
+      angle={135}>
       <View style={styles.container}>
-        <View style={styles.row}>
-          <View style={styles.textContainer}>
-            <Text style={styles.texttesting}>Today Leads</Text>
+        <View style={styles.buttonContainer}>
+          <View style={styles.textContainerActive}>
+            <Text style={styles.texttestingActive}>Today Leads</Text>
           </View>
           <View style={styles.textContainer}>
             <Text style={styles.texttesting}>All Leads</Text>
@@ -20,16 +24,37 @@ const Card = () => {
           </View>
         </View>
         <View style={styles.row}>
-          <View>
+          <View style={{width: 170, marginRight: 10}}>
             <Text style={styles.bottomText}>Total Leads Today</Text>
             <Text style={styles.numberText}>5,2%</Text>
+            <View style={styles.rowLeft}>
+              <MaterialIcons
+                name="arrow-upward"
+                size={20}
+                style={{
+                  color: '#7CFC00',
+                  fontWeight: 'bold',
+                  marginRight: 2,
+                }}
+              />
+              <Text style={styles.bottomText}>More than yesterday</Text>
+            </View>
           </View>
-          {/* <View style={styles.line}></View> */}
-          <View>
-            <Text style={styles.bottomText}>Leads</Text>
-            <Text style={styles.rightText}>17 Leads</Text>
-            <Text style={styles.bottomText}>Deal</Text>
-            <Text style={styles.rightText}>2 Deal</Text>
+          <View
+            style={{
+              borderColor: 'white',
+              borderRightWidth: 1,
+              height: 70,
+              marginTop: 25,
+            }}
+          />
+          <View style={{width: 120, marginLeft: 10}}>
+            <View style={{alignItems: 'center'}}>
+              <Text style={styles.bottomText}>Leads</Text>
+              <Text style={styles.rightText}>17 Leads</Text>
+              <Text style={styles.bottomText}>Deals</Text>
+              <Text style={styles.rightText}>3 Deals</Text>
+            </View>
           </View>
         </View>
       </View>
@@ -40,10 +65,11 @@ const Card = () => {
 const styles = StyleSheet.create({
   card: {
     borderRadius: 10,
-    padding: 16,
+    paddingHorizontal: 15,
+    paddingTop: 10,
+    paddingBottom: 20,
     flexDirection: 'row', // Untuk mengatur teks dan gambar secara horizontal
     alignItems: 'center',
-    height: 'auto',
   },
   //   textContainer: {
   //     flex: 1, // Untuk memungkinkan teks mengisi sisa ruang yang tersedia
@@ -80,38 +106,59 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    // backgroundColor: 'white',
     justifyContent: 'center',
-    top: -35,
   },
   row: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    paddingHorizontal: 20,
-    marginTop: 20,
+  },
+  rowLeft: {
+    flexDirection: 'row',
+  },
+  buttonContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: 23,
   },
   textContainer: {
-    backgroundColor: 'white',
-    borderRadius: 10,
-    padding: 10,
-    borderWidth: 1,
-    // borderColor: '#ccc',
+    backgroundColor: '#e7e5df',
+    borderRadius: 5,
+    paddingVertical: 4,
+    textAlign: 'center',
+    width: 100,
   },
   texttesting: {
-    fontSize: 16,
+    textAlign: 'center',
     fontWeight: 'bold',
+    color: '#483729',
+  },
+  textContainerActive: {
+    backgroundColor: '#483729',
+    borderRadius: 5,
+    paddingVertical: 4,
+    textAlign: 'center',
+    width: 100,
+  },
+  texttestingActive: {
+    textAlign: 'center',
+    fontWeight: 'bold',
+    color: '#e7e5df',
   },
   bottomText: {
-    fontSize: 14,
     color: 'white',
   },
   numberText: {
-    fontSize: 30,
+    fontSize: 40,
     color: 'white',
+    fontWeight: 'bold',
+    letterSpacing: 2,
+    marginVertical: 10,
   },
   rightText: {
     fontWeight: 'bold',
     color: 'white',
+    fontSize: 20,
+    marginBottom: 10,
   },
   line: {
     height: 80,
