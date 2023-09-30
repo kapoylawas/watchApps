@@ -16,32 +16,29 @@ const Login = () => {
         style={{
           justifyContent: 'center',
           alignItems: 'center',
-          marginTop: 90,
+          marginTop: 130,
+          marginBottom: 50,
         }}>
         <Image
-          source={require('../../assets/icons/logojam.png')}
-          style={{width: 100, height: 100}}
+          source={require('../../assets/watches-trader/logo/logo-black.png')}
+          style={{height: 130, resizeMode: 'contain'}}
         />
-        <Text style={{fontSize: 18, fontWeight: 'bold', color: '#D39001'}}>
-          WATCHES
-        </Text>
-        <Text style={{fontWeight: 'bold'}}>TRADER</Text>
       </View>
       <TextInputEmail
         state={email}
         set={SetEmail}
         icon="envelope"
-        placeholder="Input Email"
+        placeholder="Email"
         secureTextEntry={false}
       />
       <TextInputEmail
         state={password}
         set={SetPassword}
         icon="lock"
-        placeholder="Input Password"
+        placeholder="Password"
         secureTextEntry={true}
       />
-      <LoginButton text="Login" color="#694C20" />
+      <LoginButton text="SIGN IN" color="#483729" />
       <ForgotPassword />
     </View>
   );

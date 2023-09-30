@@ -1,6 +1,13 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-import {Image, SafeAreaView, StyleSheet, Text, View} from 'react-native';
+import {
+  Image,
+  SafeAreaView,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 
 //import material icons
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
@@ -12,34 +19,45 @@ import ButtonBiodata from '../../components/ButtonBiodata';
 
 export default function HomeScreen() {
   return (
-    <SafeAreaView style={{padding: 10}}>
-      <ButtonBiodata />
-      <View style={styles.container}>
-        <Image
-          source={require('../../assets/icons/logojam.png')} // Adjust the path to your logo image
-          style={styles.logo}
-        />
-      </View>
-      <View style={styles.dateContainer}>
-        <MaterialIcons name="today" style={styles.postIcon} size={20} />
-        <Text style={styles.dateText}>28 AUG 2023</Text>
-      </View>
+    <SafeAreaView
+      style={{paddingTop: 23, paddingHorizontal: 23, paddingBottom: 70}}>
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <ButtonBiodata />
+        <View style={styles.logoContainer}>
+          <Image
+            source={require('../../assets/icons/logojam.png')} // Adjust the path to your logo image
+            style={styles.logo}
+          />
+        </View>
+        <View style={styles.sectionContainer}>
+          <MaterialIcons name="today" style={styles.dateIcon} size={20} />
+          <Text style={styles.dateText}>28 AUG 2023</Text>
+        </View>
+        <View>
+          <Cardform />
+        </View>
+        <View style={styles.sectionContainer}>
+          <Text style={styles.postText}>UPCOMING SCHEDULE</Text>
+        </View>
+        <View>
+          <Schedule />
+        </View>
+        <View style={styles.sectionContainer}>
+          <Text style={styles.postText}>DUE DATE</Text>
+        </View>
+        <View>
+          <DateCard />
+        </View>
+        <View
+          style={[
+            styles.sectionContainer,
+            styles.textCenter,
+            styles.endSection,
+          ]}>
+          <Text style={styles.postText}>SEE ALL</Text>
+        </View>
+      </ScrollView>
       <View>
-        <Cardform />
-      </View>
-      <View style={styles.postContainer}>
-        <Text style={styles.postText}>UPCOMING SCHEDULE</Text>
-      </View>
-      <View>
-        <Schedule />
-      </View>
-      <View style={styles.dueDateContainer}>
-        <Text style={styles.postText}>UPCOMING SCHEDULE</Text>
-      </View>
-      <View>
-        <DateCard />
-      </View>
-      <View style={{flex: 1}}>
         {/* Konten lain dalam komponen */}
         <Floatingbutton />
       </View>
@@ -66,48 +84,48 @@ const styles = StyleSheet.create({
     color: '#333333',
     fontWeight: 'bold',
   },
-  container: {
+  logoContainer: {
     alignItems: 'center',
     justifyContent: 'center',
-    flex: 1,
+    marginVertical: -15,
   },
   logo: {
-    top: 30,
-    width: 50, // Adjust the width as needed
-    height: 50, // Adjust the height as needed
-  },
-  dateContainer: {
-    marginTop: 50,
-    flexDirection: 'row',
+    width: 120, // Adjust the width as needed
+    height: 120, // Adjust the height as needed
+    resizeMode: 'contain',
   },
   dateIcon: {
     marginRight: 5,
-    color: '#333333',
+    color: '#483729',
   },
   dateText: {
-    color: '#333333',
+    color: '#483729',
     fontWeight: 'bold',
+    letterSpacing: 1,
   },
   cardContainer: {
-    // top: 100,
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
   },
-  postContainer: {
-    marginTop: 8,
+  sectionContainer: {
+    marginTop: 20,
+    marginBottom: 5,
     flexDirection: 'row',
   },
   postIcon: {
     marginRight: 5,
-    color: '#333333',
+    color: '#483729',
   },
   postText: {
-    color: '#333333',
+    color: '#483729',
     fontWeight: 'bold',
+    letterSpacing: 1,
   },
-  dueDateContainer: {
-    marginTop: 5,
-    flexDirection: 'row',
+  textCenter: {
+    alignSelf: 'center',
+  },
+  endSection: {
+    marginBottom: 70,
   },
 });

@@ -12,8 +12,7 @@ const ButtonSave = () => {
       style={{
         backgroundColor: '#E7E5E0',
         paddingVertical: 10,
-        marginTop: 20,
-        marginHorizontal: 150,
+        marginTop: 40,
         borderRadius: 15,
         elevation: 2,
       }}
@@ -24,6 +23,7 @@ const ButtonSave = () => {
           textAlign: 'center',
           fontWeight: 'bold',
           fontSize: 20,
+          letterSpacing: 2,
         }}>
         SEND
       </Text>

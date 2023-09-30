@@ -17,7 +17,7 @@ const TextInputEmail = props => {
             borderBottomLeftRadius: 15,
             elevation: 2,
           }}>
-          <Icon name={props.icon} size={30} color="#000" />
+          <Icon name={props.icon} size={19} color="#483729" />
         </View>
         <TextInput
           value={props.state}
