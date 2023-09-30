@@ -42,14 +42,22 @@ export default function FormLeadsScreen() {
           <Text style={{padding: 15, marginTop: -20, fontWeight: 'bold'}}>
             Date Created
           </Text>
-          <Text style={{padding: 15, marginTop: -20, fontWeight: 'bold'}}>
+          <Text
+            style={{
+              padding: 15,
+              marginTop: -10,
+              fontWeight: 'bold',
+              marginLeft: 170,
+              borderRadius: 10,
+              backgroundColor: '#E7E5E0',
+            }}>
             Date Created
           </Text>
         </View>
         <Text
           style={{
             padding: 15,
-            marginTop: -30,
+            marginTop: -40,
             marginRight: 100,
             fontWeight: 'bold',
           }}>
