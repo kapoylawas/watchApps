@@ -23,8 +23,8 @@ export default function Floatingbutton() {
 const styles = StyleSheet.create({
   button: {
     position: 'absolute', // Membuat tombol mengambang
-    bottom: 10, // Atur jarak dari bawah layar
-    right: -10, // Atur jarak dari kanan layar
+    bottom: 80, // Atur jarak dari bawah layar
+    right: 10, // Atur jarak dari kanan layar
     backgroundColor: '#D39001', // Ganti warna sesuai dengan kebutuhan
     borderRadius: 100, // Agar tombol terlihat bulat
     width: 50,

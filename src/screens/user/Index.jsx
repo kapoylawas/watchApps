@@ -1,33 +1,32 @@
 /* eslint-disable react-native/no-inline-styles */
 import {useNavigation} from '@react-navigation/native';
 import React from 'react';
-import {StatusBar, Text, TouchableOpacity, View} from 'react-native';
+import {Image, StatusBar, Text, TouchableOpacity, View} from 'react-native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 export default function UserScreen() {
   const navigation = useNavigation();
   return (
-    <View style={{flex: 1, backgroundColor: '#F3F2EF'}}>
+    <View
+      style={{
+        flex: 1,
+        backgroundColor: '#F3F2EF',
+        padding: 23,
+      }}>
       <View
         style={{
           flexDirection: 'row',
           justifyContent: 'space-between',
           alignItems: 'center',
-          marginTop: 10,
         }}>
         <TouchableOpacity onPress={() => navigation.navigate('HomeScreen')}>
-          <MaterialIcons
-            name="close"
+          <Image
+            source={require('../../assets/watches-trader/icon/close.png')}
             style={{
-              justifyContent: 'center',
-              alignItems: 'center',
-              width: 30,
-              height: 30,
-              borderRadius: 45,
-              padding: -1,
+              height: 20,
+              width: 20,
+              resizeMode: 'contain',
             }}
-            size={30}
-            color="#000"
           />
         </TouchableOpacity>
       </View>
@@ -36,20 +35,15 @@ export default function UserScreen() {
         style={{
           justifyContent: 'center',
           alignItems: 'center',
-          marginTop: 90,
+          marginTop: 50,
         }}>
-        <MaterialIcons
-          name="person"
+        <Image
+          source={require('../../assets/watches-trader/icon/user.png')}
           style={{
-            justifyContent: 'center',
-            alignItems: 'center',
-            width: 100,
             height: 100,
-            borderRadius: 50,
-            backgroundColor: '#483729',
+            width: 100,
+            resizeMode: 'contain',
           }}
-          size={100}
-          color="#fff"
         />
         <Text
           style={{
@@ -57,29 +51,39 @@ export default function UserScreen() {
             fontWeight: 'bold',
             color: '#483729',
             marginTop: 10,
+            letterSpacing: 1,
           }}>
           JHON DOE
         </Text>
         <Text style={{fontWeight: 'bold'}}>Employee</Text>
       </View>
-      <View style={{marginTop: 250, paddingBottom: 20}}>
+      <View style={{marginTop: 270, paddingBottom: 20}}>
         <TouchableOpacity>
-          <Text style={{textAlign: 'center', color: 'black'}}>
-            FORGOT PASSWORD
+          <Text
+            style={{
+              textAlign: 'center',
+              color: '#483729',
+              letterSpacing: 1,
+            }}>
+            Forgot Password ?
           </Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={{
             backgroundColor: '#483729',
             paddingVertical: 15,
-            marginTop: 10,
-            marginHorizontal: 150,
-            borderRadius: 30,
+            marginTop: 20,
+            borderRadius: 10,
             elevation: 2,
           }}
           onPress={() => navigation.navigate('HomeScreen')}>
           <Text
-            style={{color: '#fff', textAlign: 'center', fontWeight: 'bold'}}>
+            style={{
+              letterSpacing: 1,
+              color: '#fff',
+              textAlign: 'center',
+              fontWeight: 'bold',
+            }}>
             SAVE
           </Text>
         </TouchableOpacity>
