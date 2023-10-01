@@ -13,7 +13,7 @@ function ForgotPassword() {
       }}>
       <TouchableOpacity>
         <Text style={{marginTop: 50, color: '#483729', letterSpacing: 2}}>
-          forgot password ?
+          Forgot password ?
         </Text>
       </TouchableOpacity>
       <TouchableOpacity>
