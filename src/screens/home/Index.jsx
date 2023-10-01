@@ -21,7 +21,7 @@ export default function HomeScreen() {
   return (
     <SafeAreaView>
       <ScrollView
-        style={{paddingTop: 23, paddingHorizontal: 23, paddingBottom: 70}}
+        style={{paddingTop: 10, paddingHorizontal: 15, paddingBottom: 70}}
         showsVerticalScrollIndicator={false}>
         <ButtonBiodata />
         <View style={styles.logoContainer}>

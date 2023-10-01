@@ -11,7 +11,9 @@ export default function UserScreen() {
       style={{
         flex: 1,
         backgroundColor: '#F3F2EF',
-        padding: 23,
+        paddingTop: 17,
+        paddingHorizontal: 15,
+        paddingBottom: 15,
       }}>
       <View
         style={{
