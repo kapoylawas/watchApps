@@ -10,7 +10,7 @@ export default function QuoteScreen() {
   const navigation = useNavigation();
   return (
     <ScrollView
-      style={{paddingTop: 23, paddingHorizontal: 23, paddingBottom: 0}}
+      style={{paddingTop: 17, paddingHorizontal: 15}}
       showsVerticalScrollIndicator={false}>
       <View>
         <TouchableOpacity onPress={() => navigation.navigate('HomeScreen')}>

@@ -7,36 +7,26 @@ export default function LeadsButton() {
   const navigation = useNavigation();
 
   return (
-    <View style={styles.container}>
-      {/* Your app content goes here */}
-
-      {/* Floating Button */}
-      <TouchableOpacity
-        style={styles.floatingButton}
-        onPress={() => navigation.navigate('Inputleads')}>
-        <Icon name="plus" size={24} color="white" />
-      </TouchableOpacity>
-    </View>
+    <TouchableOpacity
+      style={styles.floatingButton}
+      onPress={() => navigation.navigate('Inputleads')}>
+      <Icon name="plus" size={30} color="white" />
+    </TouchableOpacity>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#f0f0f0', // Set your desired background color
-  },
   floatingButton: {
-    position: 'absolute',
-    bottom: 20, // Adjust the bottom distance as needed
-    right: 20, // Adjust the right distance as needed
-    backgroundColor: '#D39001', // Set your desired button color
-    borderRadius: 30, // Make it round
-    width: 60,
-    height: 60,
+    position: 'absolute', // Membuat tombol mengambang
+    bottom: 10, // Atur jarak dari bawah layar
+    right: 10, // Atur jarak dari kanan layar
+    backgroundColor: '#D39001', // Ganti warna sesuai dengan kebutuhan
+    borderRadius: 100, // Agar tombol terlihat bulat
+    width: 50,
+    height: 50,
     justifyContent: 'center',
     alignItems: 'center',
-    elevation: 8, // Add elevation for a shadow (Android only)
+    zIndex: 9999999,
+    elevation: 2,
   },
 });
