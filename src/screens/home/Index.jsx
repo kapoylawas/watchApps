@@ -19,9 +19,10 @@ import ButtonBiodata from '../../components/ButtonBiodata';
 
 export default function HomeScreen() {
   return (
-    <SafeAreaView
-      style={{paddingTop: 23, paddingHorizontal: 23, paddingBottom: 70}}>
-      <ScrollView showsVerticalScrollIndicator={false}>
+    <SafeAreaView>
+      <ScrollView
+        style={{paddingTop: 23, paddingHorizontal: 23, paddingBottom: 70}}
+        showsVerticalScrollIndicator={false}>
         <ButtonBiodata />
         <View style={styles.logoContainer}>
           <Image
@@ -126,6 +127,6 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   endSection: {
-    marginBottom: 70,
+    marginBottom: 180,
   },
 });

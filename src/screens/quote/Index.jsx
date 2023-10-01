@@ -9,39 +9,38 @@ import InputQuote from '../../components/InputQuote';
 export default function QuoteScreen() {
   const navigation = useNavigation();
   return (
-    <SafeAreaView
-      style={{paddingTop: 23, paddingHorizontal: 23, paddingBottom: 0}}>
-      <ScrollView showsVerticalScrollIndicator={false}>
-        <View>
-          <TouchableOpacity onPress={() => navigation.navigate('HomeScreen')}>
-            <Image
-              source={require('../../assets/watches-trader/icon/close.png')}
-              style={{
-                height: 20,
-                width: 20,
-                resizeMode: 'contain',
-              }}
-            />
-          </TouchableOpacity>
-        </View>
-        <View
-          style={{
-            justifyContent: 'center',
-            alignItems: 'center',
-            marginTop: 30,
-          }}>
-          <Text
+    <ScrollView
+      style={{paddingTop: 23, paddingHorizontal: 23, paddingBottom: 0}}
+      showsVerticalScrollIndicator={false}>
+      <View>
+        <TouchableOpacity onPress={() => navigation.navigate('HomeScreen')}>
+          <Image
+            source={require('../../assets/watches-trader/icon/close.png')}
             style={{
-              fontSize: 20,
-              fontWeight: 'bold',
-              color: '#483729',
-              letterSpacing: 1,
-            }}>
-            QUOTE TO :
-          </Text>
-        </View>
-        <InputQuote />
-      </ScrollView>
-    </SafeAreaView>
+              height: 20,
+              width: 20,
+              resizeMode: 'contain',
+            }}
+          />
+        </TouchableOpacity>
+      </View>
+      <View
+        style={{
+          justifyContent: 'center',
+          alignItems: 'center',
+          marginTop: 30,
+        }}>
+        <Text
+          style={{
+            fontSize: 20,
+            fontWeight: 'bold',
+            color: '#483729',
+            letterSpacing: 1,
+          }}>
+          QUOTE TO :
+        </Text>
+      </View>
+      <InputQuote />
+    </ScrollView>
   );
 }

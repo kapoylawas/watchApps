@@ -13,6 +13,7 @@ const ButtonSave = () => {
         backgroundColor: '#E7E5E0',
         paddingVertical: 10,
         marginTop: 40,
+        marginBottom: 30,
         borderRadius: 15,
         elevation: 2,
       }}
