@@ -35,7 +35,7 @@ export default function LeadsScreen() {
           paddingTop: 17,
           paddingHorizontal: 15,
         }}>
-        <ButtonBackOption />
+        <ButtonBackOption backTo={'Home'} />
         {/* tombol search */}
         <View
           style={{

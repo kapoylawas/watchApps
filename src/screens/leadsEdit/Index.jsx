@@ -9,24 +9,22 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import ButtonBackOption from '../../components/ButtonBackLeads';
+import ButtonBackOption from '../../components/ButtonBackOption';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 export default function LeadsEditScreen() {
   return (
     <SafeAreaView style={{backgroundColor: '#fff', flex: 1}}>
-      <ScrollView
-        style={{paddingBottom: 100, marginBottom: 10}}
-        showsVerticalScrollIndicator={false}>
+      <ScrollView showsVerticalScrollIndicator={false}>
         <View style={{paddingTop: 17, paddingHorizontal: 15}}>
-          <ButtonBackOption />
-          <View style={styles.container}>
+          <ButtonBackOption backTo={'Leads'} />
+          <View style={styles.headerContainer}>
             <View
               style={{
                 backgroundColor: '#E7E5E0',
                 padding: 10,
-                marginRight: 3,
                 elevation: 4,
-                borderRadius: 35,
+                borderRadius: 100,
               }}>
               <Image
                 source={require('../../assets/watches-trader/crown/gold.png')}
@@ -37,27 +35,27 @@ export default function LeadsEditScreen() {
                 }}
               />
             </View>
-            <View style={styles.textContainer}>
+            <View style={styles.nameContainer}>
               <Text
-                style={{color: '#483729', fontWeight: 'bold', fontSize: 20}}>
-                Ramzy{' '}
+                style={{
+                  color: '#483729',
+                  fontWeight: 'bold',
+                  fontSize: 20,
+                  marginRight: 5,
+                  flex: 1,
+                }}>
+                Ramzy Ramzy Ramzy Ramzy Ramzy{' '}
                 <Image
                   source={require('../../assets/watches-trader/icon/pencil.png')}
                   style={{
                     height: 20,
                     width: 20,
+                    resizeMode: 'contain',
                   }}
                 />
               </Text>
-              <Text style={{color: '#483729', fontSize: 10}}>
-                <Image
-                  source={require('../../assets/watches-trader/icon/add.png')}
-                  style={{
-                    height: 10,
-                    width: 10,
-                  }}
-                />{' '}
-                Ramzy
+              <Text style={{color: '#483729'}}>
+                <Icon name={'mars'} size={16} color="#59b1d4" /> Male
               </Text>
             </View>
             <View
@@ -65,232 +63,186 @@ export default function LeadsEditScreen() {
                 backgroundColor: '#E7E5E0',
                 alignItems: 'center',
                 borderRadius: 10,
-                marginRight: 10,
-                flexDirection: 'row',
                 paddingHorizontal: 10,
-                height: 40,
-                marginTop: 10,
-                elevation: 5,
+                paddingVertical: 10,
+                elevation: 4,
               }}>
-              <Text style={styles.subText}>Assign to</Text>
+              <Text style={styles.text}>Assign to</Text>
             </View>
           </View>
           {/* phone number */}
-          <View style={styles.container}>
-            <Text style={styles.text}>Phone number</Text>
-            <View style={{marginLeft: -15}}>
-              <Image
-                source={require('../../assets/watches-trader/icon/pencil.png')}
-                style={{
-                  height: 15,
-                  width: 15,
-                  resizeMode: 'contain',
-                  marginTop: 1,
-                }}
-              />
-            </View>
-            <Text
-              style={{
-                color: '#483729',
-                fontSize: 12,
-                marginLeft: -100,
-                marginTop: 20,
-              }}>
-              {' '}
-              0812345678xxx
-            </Text>
-            <View style={styles.right}>
-              <Image
-                source={require('../../assets/watches-trader/crown/jm.png')}
-                style={{
-                  height: 100,
-                  width: 90,
-                  resizeMode: 'contain',
-                }}
-              />
-              <Text style={{alignItems: 'center'}}>SKU-123456</Text>
-              <View>
-                <Text
-                  style={{
-                    alignItems: 'center',
-                    marginLeft: 12,
-                    fontWeight: 'bold',
-                    color: '#000',
-                  }}>
+          <View style={styles.rowContent}>
+            <View style={{flex: 1, marginHorizontal: 10}}>
+              <View style={styles.container}>
+                <Text style={styles.text}>
+                  Phone Number{' '}
+                  <Image
+                    source={require('../../assets/watches-trader/icon/pencil.png')}
+                    style={{
+                      height: 15,
+                      width: 15,
+                      resizeMode: 'contain',
+                      marginTop: 1,
+                    }}
+                  />
+                </Text>
+                <Text style={styles.subText}> 0812345678xxx</Text>
+              </View>
+              <View style={styles.container}>
+                <Text style={styles.text}>
+                  Inquiry{' '}
+                  <Image
+                    source={require('../../assets/watches-trader/icon/pencil.png')}
+                    style={{
+                      height: 15,
+                      width: 15,
+                      resizeMode: 'contain',
+                      marginTop: 1,
+                    }}
+                  />
+                </Text>
+                <Text style={styles.subText}>
                   {' '}
-                  Unworn
+                  GMT-MASTER II <Icon name={'check'} size={16} color="green" />
                 </Text>
               </View>
+              <View style={styles.container}>
+                <Text style={styles.text}>Price</Text>
+                <Text style={styles.subText}> IDR 20.000.000</Text>
+              </View>
+              <View style={styles.container}>
+                <Text style={styles.text}>
+                  2nd Inquiry{' '}
+                  <Image
+                    source={require('../../assets/watches-trader/icon/pencil.png')}
+                    style={{
+                      height: 15,
+                      width: 15,
+                      resizeMode: 'contain',
+                      marginTop: 1,
+                    }}
+                  />
+                </Text>
+                <Text style={styles.subText}>
+                  {' '}
+                  Yacht-Master <Icon name={'close'} size={16} color="red" />
+                </Text>
+              </View>
+              <View style={styles.container}>
+                <Text style={styles.text}>Price</Text>
+                <Text style={styles.subText}> -</Text>
+              </View>
             </View>
-          </View>
-          {/* inquiry */}
-          <View style={{marginTop: -105, marginLeft: 5}}>
-            <Text style={{color: '#483729', fontWeight: 'bold'}}>
-              Inquiry{' '}
-              <Image
-                source={require('../../assets/watches-trader/icon/pencil.png')}
+            {/* right */}
+            <View style={{margin: 10}}>
+              <View style={styles.contentImage}>
+                <Image
+                  source={require('../../assets/watches-trader/crown/jm.png')}
+                  style={{
+                    height: 150,
+                    width: 150,
+                    resizeMode: 'contain',
+                    marginVertical: 10,
+                  }}
+                />
+                <Text style={styles.subText}>SKU-123456</Text>
+                <View>
+                  <Text style={styles.text}>Unworn</Text>
+                </View>
+              </View>
+              <View
                 style={{
-                  height: 15,
-                  width: 15,
-                  resizeMode: 'contain',
-                  marginTop: 1,
-                }}
-              />
-            </Text>
-            <Text style={{color: '#483729', fontSize: 12, marginLeft: 12}}>
-              {' '}
-              GMT-MASTER II{' '}
-              <Image
-                source={require('../../assets/watches-trader/icon/centang.png')}
-                style={{
-                  height: 15,
-                  width: 15,
-                  resizeMode: 'contain',
-                  marginTop: 1,
-                }}
-              />
-            </Text>
-          </View>
-          {/* 2ND INQUIRY */}
-          <View style={{marginTop: 11, marginLeft: 5}}>
-            <Text style={{color: '#483729', fontWeight: 'bold'}}>Price </Text>
-            <Text style={{color: '#483729', fontSize: 12, marginLeft: 12}}>
-              {' '}
-              IDR 123456{' '}
-            </Text>
-          </View>
-          <View style={{marginTop: 11, marginLeft: 5}}>
-            <Text style={{color: '#483729', fontWeight: 'bold'}}>
-              2nd Inquiry{' '}
-            </Text>
-            <Text style={{color: '#483729', fontSize: 12, marginLeft: 12}}>
-              {' '}
-              Yacht-Master{' '}
-              <Image
-                source={require('../../assets/watches-trader/icon/silang.png')}
-                style={{
-                  height: 15,
-                  width: 15,
-                  resizeMode: 'contain',
-                  marginTop: 1,
-                }}
-              />
-            </Text>
-          </View>
-
-          {/* PRICE AND PRIORTY */}
-          <View style={styles.container}>
-            <View style={styles.textContainer}>
-              <Text
-                style={{color: '#483729', fontWeight: 'bold', fontSize: 20}}>
-                Price{' '}
-              </Text>
-              <Text
-                style={{color: '#483729', fontSize: 20, alignItems: 'center'}}>
-                {' '}
-                -
-              </Text>
-            </View>
-            <View style={{marginRight: 20, marginTop: 5}}>
-              <Text
-                style={{color: '#483729', fontWeight: 'bold', fontSize: 20}}>
-                Priority{' '}
-              </Text>
-              <Image
-                source={require('../../assets/watches-trader/icon/pencil.png')}
-                style={{
-                  height: 15,
-                  width: 15,
-                  resizeMode: 'contain',
                   marginTop: 5,
-                  marginLeft: 20,
-                }}
-              />
+                  alignItems: 'center',
+                  alignSelf: 'flex-end',
+                }}>
+                <Text style={styles.text}>Priority</Text>
+                <Image
+                  source={require('../../assets/watches-trader/icon/pencil.png')}
+                  style={{
+                    height: 20,
+                    width: 20,
+                    resizeMode: 'contain',
+                    marginTop: 5,
+                  }}
+                />
+              </View>
             </View>
           </View>
           {/* card */}
           <View style={styles.card}>
-            <View style={styles.cardContainer}>
-              <Text>
-                <Text style={{fontWeight: 'bold'}}>14:20</Text>{' '}
-                <Text>Halo</Text>
+            <Text
+              style={[
+                {fontSize: 12, textAlign: 'center', marginBottom: 10},
+                styles.subText,
+              ]}>
+              Today
+            </Text>
+            <View style={styles.msgContainer}>
+              <Text style={[{}, styles.text]}>14:21 </Text>
+              <Text style={[{flex: 1}, styles.subText]}>
+                Saya minta pricelist untuk jm tanganij adisjd iajs dija sidj
+                aisd
               </Text>
             </View>
-            <View>
-              <Text>
-                <Text style={{fontWeight: 'bold'}}>14:21</Text>{' '}
-                <Text>Saya minta pricelist untuk jm tangan</Text>
-              </Text>
-            </View>
-            <View style={{marginTop: 60, marginLeft: 250}}>
-              <Text>
-                <Text style={{fontSize: 9}}>Last update 29 Aug 2023</Text>
-              </Text>
-            </View>
+            <Text
+              style={[
+                {fontSize: 10, textAlign: 'right', marginTop: 20},
+                styles.subText,
+              ]}>
+              Last update 29 Aug 2023
+            </Text>
           </View>
-        </View>
-        <View>
           <TouchableOpacity
             style={{
               backgroundColor: '#E7E5E0',
-              paddingVertical: 15,
-              marginHorizontal: 150,
+              paddingVertical: 10,
               borderRadius: 10,
-              marginTop: -90,
-              elevation: 5,
+              marginTop: -20,
+              elevation: 10,
+              width: 100,
+              alignSelf: 'center',
             }}>
             <Text
-              style={{
-                color: '#000',
-                textAlign: 'center',
-                letterSpacing: 2,
-              }}>
+              style={[
+                {
+                  textAlign: 'center',
+                  letterSpacing: 1,
+                },
+                styles.text,
+              ]}>
               SEE ALL
             </Text>
           </TouchableOpacity>
-        </View>
-        <View style={{marginBottom: 50, marginTop: 50}}>
           <TouchableOpacity
             style={{
               backgroundColor: '#E7E5E0',
-              paddingVertical: 5,
-              marginHorizontal: 110,
+              paddingVertical: 10,
               borderRadius: 10,
-              elevation: 5,
+              elevation: 2,
+              marginVertical: 40,
+              width: 180,
+              alignSelf: 'center',
+              flexDirection: 'row',
+              paddingHorizontal: 15,
             }}>
-            <Text
+            <Image
+              source={require('../../assets/watches-trader/icon/add.png')}
               style={{
-                color: '#000',
-                textAlign: 'center',
-                letterSpacing: 2,
-              }}>
-              <Image
-                source={require('../../assets/watches-trader/icon/add.png')}
-                style={{
-                  height: 10,
-                  width: 10,
-                }}
-              />{' '}
+                height: 20,
+                width: 20,
+                resizeMode: 'contain',
+              }}
+            />
+            <Text
+              style={[
+                {
+                  textAlign: 'center',
+                  flex: 1,
+                },
+                styles.text,
+              ]}>
               ADD ACTION
-            </Text>
-          </TouchableOpacity>
-        </View>
-        <View style={{marginBottom: 50, marginTop: 10}}>
-          <TouchableOpacity
-            style={{
-              backgroundColor: '#E7E5E0',
-              paddingVertical: 15,
-              marginHorizontal: 140,
-              borderRadius: 10,
-              elevation: 5,
-            }}>
-            <Text
-              style={{
-                color: '#000',
-                textAlign: 'center',
-                letterSpacing: 2,
-              }}>
-              SAVE
             </Text>
           </TouchableOpacity>
         </View>
@@ -300,45 +252,56 @@ export default function LeadsEditScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: {
+  headerContainer: {
     flexDirection: 'row',
-    borderBottomWidth: 1,
-    borderColor: '#FFF',
-    paddingVertical: 20,
+    marginTop: 20,
+    marginBottom: 10,
+    alignItems: 'flex-start',
+  },
+  rowName: {
+    flexDirection: 'row',
+    alignItems: 'flex-end',
+  },
+  rowContent: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+  },
+  container: {
+    marginVertical: 10,
   },
   containerButton: {
     flexDirection: 'row',
     paddingVertical: 20,
   },
-  cardContainer: {
-    marginTop: 20,
+  msgContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    paddingHorizontal: 5,
   },
-  textContainer: {
-    flex: 2,
-    marginHorizontal: 20,
-    marginTop: 5,
+  nameContainer: {
+    marginHorizontal: 10,
+    flex: 1,
   },
   subText: {
     color: '#483729',
-    marginTop: 2,
   },
   text: {
     color: '#483729',
     fontWeight: 'bold',
-    marginLeft: 5,
-    marginHorizontal: 20,
   },
-  right: {
-    marginLeft: 190,
-    marginTop: 1,
+  contentImage: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    flex: 1,
   },
   card: {
-    width: 360,
     backgroundColor: '#E7E5E0',
     borderRadius: 10,
-    alignSelf: 'center',
-    marginVertical: 70,
-    marginTop: 1,
+    paddingTop: 10,
+    paddingBottom: 10,
+    paddingHorizontal: 10,
+    marginTop: 20,
     elevation: 5,
   },
 });

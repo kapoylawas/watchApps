@@ -3,7 +3,7 @@ import React from 'react';
 import {Image, Text, TouchableOpacity, View} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 
-const ButtonBackOption = () => {
+const ButtonBackOption = prop => {
   const navigation = useNavigation();
   return (
     <View
@@ -14,7 +14,7 @@ const ButtonBackOption = () => {
       }}>
       <TouchableOpacity
         style={{flexDirection: 'row', alignItems: 'center'}}
-        onPress={() => navigation.navigate('Home')}>
+        onPress={() => navigation.navigate(prop.backTo)}>
         <Image
           source={require('../assets/watches-trader/icon/back.png')}
           style={{
