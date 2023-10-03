@@ -9,6 +9,7 @@ import UserScreen from './src/screens/user/Index';
 import InfoScreen from './src/screens/info/Index';
 import QuoteScreen from './src/screens/quote/Index';
 import FormLeadsScreen from './src/screens/formLeads/Index';
+import LeadsEditScreen from './src/screens/leadsEdit/Index';
 
 const Stack = createNativeStackNavigator();
 
@@ -26,6 +27,7 @@ const App = () => {
         <Stack.Screen name="Info" component={InfoScreen} />
         <Stack.Screen name="Quote" component={QuoteScreen} />
         <Stack.Screen name="Inputleads" component={FormLeadsScreen} />
+        <Stack.Screen name="LeadEdit" component={LeadsEditScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

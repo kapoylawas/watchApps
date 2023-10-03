@@ -10,7 +10,6 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
 import LeadsButton from '../../components/LeadsButton';
 import ButtonBackOption from '../../components/ButtonBackOption';
 
@@ -20,6 +19,10 @@ export default function LeadsScreen() {
   // Fungsi untuk kembali ke halaman Home
   const goToHome = () => {
     navigation.navigate('Home');
+  };
+
+  const goLeadsEdits = () => {
+    navigation.navigate('LeadEdit');
   };
   return (
     <SafeAreaView
@@ -97,24 +100,27 @@ export default function LeadsScreen() {
             <View style={styles.dateContainer}>
               <Text style={styles.dateText}>Today</Text>
             </View>
-            <View style={styles.container}>
-              <Image
-                source={require('../../assets/watches-trader/icon/user.png')}
-                style={{
-                  height: 40,
-                  width: 40,
-                  resizeMode: 'contain',
-                }}
-              />
-              <View style={styles.textContainer}>
-                <Text style={styles.nameText}>Ramzy</Text>
-                <Text style={styles.subText} numberOfLines={1}>
-                  Saya minta daftar harga jam tipe ini dengan strap ini yasajd
-                  iajsd iajsd ajsdj asbdj ash jdh asjdh ds
-                </Text>
+            {/* BUTTON TO PAGES LEADS */}
+            <TouchableOpacity onPress={goLeadsEdits}>
+              <View style={styles.container}>
+                <Image
+                  source={require('../../assets/watches-trader/icon/user.png')}
+                  style={{
+                    height: 40,
+                    width: 40,
+                    resizeMode: 'contain',
+                  }}
+                />
+                <View style={styles.textContainer}>
+                  <Text style={styles.nameText}>Ramzy</Text>
+                  <Text style={styles.subText} numberOfLines={1}>
+                    Saya minta daftar harga jam tipe ini dengan strap ini yasajd
+                    iajsd iajsd ajsdj asbdj ash jdh asjdh ds
+                  </Text>
+                </View>
+                <Text style={styles.subText}>14:20</Text>
               </View>
-              <Text style={styles.subText}>14:20</Text>
-            </View>
+            </TouchableOpacity>
             <View style={styles.container}>
               <Image
                 source={require('../../assets/watches-trader/icon/user.png')}
