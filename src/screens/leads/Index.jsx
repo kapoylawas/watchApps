@@ -95,7 +95,7 @@ export default function LeadsScreen() {
             </TouchableOpacity>
           </ScrollView>
         </View>
-        <ScrollView style={styles.card}>
+        <ScrollView showsVerticalScrollIndicator={false} style={styles.card}>
           <View style={{paddingBottom: 50, paddingTop: 20}}>
             <View style={styles.dateContainer}>
               <Text style={styles.dateText}>Today</Text>
