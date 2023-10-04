@@ -56,7 +56,7 @@ export default function FormLeadsScreen() {
                 marginTop: 5,
                 elevation: 5,
               }}>
-              <Text style={styles.subText}>Assign to</Text>
+              <Text style={styles.textAssign}>Assign to</Text>
             </View>
           </View>
           {/* text input name and phone number */}
@@ -134,12 +134,20 @@ export default function FormLeadsScreen() {
           {/* price and priority */}
           <View style={styles.containerInput}>
             <Text style={styles.text}>Price</Text>
-            <Text style={styles.textPrioty}>Price</Text>
-            {/* <Text tyle={styles.textPrioty}>Priority</Text> */}
+            <Text style={styles.textPrioty}>Priority</Text>
           </View>
           <View style={styles.containerTextSelect}>
             <Text style={{marginLeft: 20, fontWeight: 'bold'}}>-</Text>
-            <Text style={{marginRight: 30, fontWeight: 'bold'}}>-</Text>
+            <View style={{marginRight: 20}}>
+              <Image
+                source={require('../../assets/watches-trader/icon/pencil.png')}
+                style={{
+                  height: 15,
+                  width: 15,
+                  resizeMode: 'contain',
+                }}
+              />
+            </View>
           </View>
           {/* action border */}
           <View style={styles.container}>
@@ -148,7 +156,7 @@ export default function FormLeadsScreen() {
               <View style={styles.garis} />
             </View>
           </View>
-          <View style={styles.dateContainer}>
+          <View style={styles.actionContainer}>
             <Text style={{fontWeight: 'bold'}}>ACTION</Text>
           </View>
           <View style={styles.containerTextAction}>
@@ -322,7 +330,7 @@ const styles = StyleSheet.create({
   hide: {
     flex: 2,
   },
-  dateContainer: {
+  actionContainer: {
     alignItems: 'center',
     marginBottom: 20,
     marginTop: -35,
@@ -344,6 +352,10 @@ const styles = StyleSheet.create({
   centeredText: {
     textAlign: 'center', // Mengatur teks ke tengah
     fontSize: 8,
+    fontWeight: 'bold',
+  },
+  textAssign: {
+    color: '#483729',
     fontWeight: 'bold',
   },
 });
