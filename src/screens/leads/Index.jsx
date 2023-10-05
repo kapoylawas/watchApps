@@ -24,6 +24,10 @@ export default function LeadsScreen() {
   const goLeadsEdits = () => {
     navigation.navigate('LeadEdit');
   };
+
+  const goInWork = () => {
+    navigation.navigate('InWork');
+  };
   return (
     <SafeAreaView
       style={{
@@ -75,7 +79,7 @@ export default function LeadsScreen() {
                 <Text style={{color: '#fff'}}>1</Text>
               </View>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.headerButton} onPress={goToHome}>
+            <TouchableOpacity style={styles.headerButton} onPress={goInWork}>
               <Text style={styles.headerButtonText}>In Work</Text>
               <View style={styles.headerButtonCounter}>
                 <Text style={{color: '#fff'}}>0</Text>

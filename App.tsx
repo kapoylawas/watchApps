@@ -3,13 +3,13 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
 import Login from './src/screens/login/Index';
-// import Navigation from './src/navigation';
 import BottomTabsNavigation from './src/navigation/BottomTabsNavigation';
 import UserScreen from './src/screens/user/Index';
 import InfoScreen from './src/screens/info/Index';
 import QuoteScreen from './src/screens/quote/Index';
 import FormLeadsScreen from './src/screens/formLeads/Index';
 import LeadsEditScreen from './src/screens/leadsEdit/Index';
+import InWorkScreen from './src/screens/inWork/Index';
 
 const Stack = createNativeStackNavigator();
 
@@ -28,6 +28,7 @@ const App = () => {
         <Stack.Screen name="Quote" component={QuoteScreen} />
         <Stack.Screen name="Inputleads" component={FormLeadsScreen} />
         <Stack.Screen name="LeadEdit" component={LeadsEditScreen} />
+        <Stack.Screen name="InWork" component={InWorkScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
