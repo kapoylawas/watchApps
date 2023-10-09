@@ -10,6 +10,7 @@ import QuoteScreen from './src/screens/quote/Index';
 import FormLeadsScreen from './src/screens/formLeads/Index';
 import LeadsEditScreen from './src/screens/leadsEdit/Index';
 import InWorkScreen from './src/screens/inWork/Index';
+import InWorkEditScreen from './src/screens/inWorkEdit';
 
 const Stack = createNativeStackNavigator();
 
@@ -29,6 +30,7 @@ const App = () => {
         <Stack.Screen name="Inputleads" component={FormLeadsScreen} />
         <Stack.Screen name="LeadEdit" component={LeadsEditScreen} />
         <Stack.Screen name="InWork" component={InWorkScreen} />
+        <Stack.Screen name="InWorkEdit" component={InWorkEditScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

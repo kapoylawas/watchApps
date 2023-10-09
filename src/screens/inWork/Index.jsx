@@ -22,6 +22,9 @@ export default function InWorkScreen() {
   const goLeads = () => {
     navigation.navigate('Leads');
   };
+  const goInWorkEdit = () => {
+    navigation.navigate('InWorkEdit');
+  };
   return (
     <SafeAreaView
       style={{
@@ -109,7 +112,7 @@ export default function InWorkScreen() {
           </Text>
         </View>
         {/* card gradian user */}
-        <TouchableOpacity>
+        <TouchableOpacity onPress={goInWorkEdit}>
           <LinearGradient
             colors={['#D39001', '#694C20']} // Warna gradient
             style={styles.card}
