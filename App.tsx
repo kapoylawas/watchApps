@@ -11,6 +11,7 @@ import FormLeadsScreen from './src/screens/formLeads/Index';
 import LeadsEditScreen from './src/screens/leadsEdit/Index';
 import InWorkScreen from './src/screens/inWork/Index';
 import InWorkEditScreen from './src/screens/inWorkEdit';
+import ContactDetailsScreen from './src/screens/contactDetails/Index';
 
 const Stack = createNativeStackNavigator();
 
@@ -31,6 +32,7 @@ const App = () => {
         <Stack.Screen name="LeadEdit" component={LeadsEditScreen} />
         <Stack.Screen name="InWork" component={InWorkScreen} />
         <Stack.Screen name="InWorkEdit" component={InWorkEditScreen} />
+        <Stack.Screen name="ContactDetails" component={ContactDetailsScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

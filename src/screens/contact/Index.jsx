@@ -3,8 +3,14 @@ import React from 'react';
 import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {SafeAreaView} from 'react-native';
 import ButtonBackOption from '../../components/ButtonBackOption';
+import {useNavigation} from '@react-navigation/native';
 
 export default function ContactScreen() {
+  const navigation = useNavigation();
+
+  const goContactDetails = () => {
+    navigation.navigate('ContactDetails');
+  };
   return (
     <SafeAreaView
       style={{
@@ -60,7 +66,7 @@ export default function ContactScreen() {
             <Text style={styles.nameText}>John Doe</Text>
           </View>
         </View>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={goContactDetails}>
           <View style={styles.container}>
             <View
               style={{
