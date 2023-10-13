@@ -15,9 +15,6 @@ import 'moment/locale/id';
 import LinearGradient from 'react-native-linear-gradient';
 
 export default function Schedule({data}) {
-  //ini navigation
-  const navigation = useNavigation();
-
   return (
     <LinearGradient
       colors={['#D39001', '#694C20']} // Warna gradient
