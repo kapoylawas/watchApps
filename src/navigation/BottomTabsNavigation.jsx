@@ -12,6 +12,7 @@ const Tab = createBottomTabNavigator();
 import Home from '../screens/home/Index';
 import Leads from '../screens/leads/Index';
 import ContactScreen from '../screens/contact/Index';
+import ScheduleScreen from '../screens/schedule/Index';
 
 export default function BottomTabsNavigation() {
   return (
@@ -81,9 +82,10 @@ export default function BottomTabsNavigation() {
       />
       <Tab.Screen
         name="Schedule"
-        component={Home}
+        component={ScheduleScreen}
         options={{
           tabBarShowLabel: false,
+          tabBarStyle: {display: 'none'},
           tabBarIcon: ({focused}) => (
             <View style={styles.tabBarIconCenter}>
               <Image
