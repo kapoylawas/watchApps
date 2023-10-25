@@ -25,7 +25,7 @@ export default function Schedule({data}) {
         <View style={styles.textContainer}>
           <Text style={styles.title}>
             <Text>Meet with </Text>
-            <Text style={{fontWeight: 'bold'}}>Mr. Ramzy</Text>
+            <Text style={{fontWeight: 'bold'}}>{data.customer_name}</Text>
           </Text>
           <View style={styles.row}>
             <Image

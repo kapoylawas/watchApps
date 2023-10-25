@@ -4,7 +4,7 @@ import {Text, StyleSheet, View} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
-const Card = () => {
+export default function Card({data}) {
   return (
     <LinearGradient
       colors={['#D39001', '#694C20']} // Warna gradient
@@ -26,7 +26,7 @@ const Card = () => {
         <View style={styles.row}>
           <View style={{width: 170, marginRight: 10}}>
             <Text style={styles.bottomText}>Total Leads Today</Text>
-            <Text style={styles.numberText}>5,2%</Text>
+            <Text style={styles.numberText}>{data.percentage.amount}</Text>
             <View style={styles.rowLeft}>
               <MaterialIcons
                 name="arrow-upward"
@@ -37,7 +37,7 @@ const Card = () => {
                   marginRight: 2,
                 }}
               />
-              <Text style={styles.bottomText}>More than yesterday</Text>
+              <Text style={styles.bottomText}>{data.percentage.detail}</Text>
             </View>
           </View>
           <View
@@ -51,16 +51,16 @@ const Card = () => {
           <View style={{width: 120, marginLeft: 10}}>
             <View style={{alignItems: 'center'}}>
               <Text style={styles.bottomText}>Leads</Text>
-              <Text style={styles.rightText}>17 Leads</Text>
+              <Text style={styles.rightText}>{data.allLeads} Leads</Text>
               <Text style={styles.bottomText}>Deals</Text>
-              <Text style={styles.rightText}>3 Deals</Text>
+              <Text style={styles.rightText}>{data.allDeals} Deals</Text>
             </View>
           </View>
         </View>
       </View>
     </LinearGradient>
   );
-};
+}
 
 const styles = StyleSheet.create({
   card: {
@@ -70,14 +70,6 @@ const styles = StyleSheet.create({
     paddingBottom: 20,
     flexDirection: 'row', // Untuk mengatur teks dan gambar secara horizontal
     alignItems: 'center',
-  },
-  //   textContainer: {
-  //     flex: 1, // Untuk memungkinkan teks mengisi sisa ruang yang tersedia
-  //   },
-  text: {
-    color: 'white', // Warna teks
-    fontSize: 18,
-    fontWeight: 'bold',
   },
   containerUser: {
     flexDirection: 'row',
@@ -167,5 +159,3 @@ const styles = StyleSheet.create({
     // marginHorizontal: 5,
   },
 });
-
-export default Card;
