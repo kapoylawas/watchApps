@@ -1,13 +1,13 @@
 /* eslint-disable react-native/no-inline-styles */
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import {Image, SafeAreaView, Text, TouchableOpacity, View} from 'react-native';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {ScrollView} from 'react-native';
 import InputQuote from '../../components/InputQuote';
 
 export default function QuoteScreen() {
   const navigation = useNavigation();
+
   return (
     <ScrollView
       style={{paddingTop: 17, paddingHorizontal: 15}}
