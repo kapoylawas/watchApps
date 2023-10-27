@@ -1,21 +1,20 @@
+/* eslint-disable react-native/no-inline-styles */
 import CheckBox from '@react-native-community/checkbox';
 import React, {useEffect, useRef, useState} from 'react';
 import {
-  Keyboard,
-  LogBox,
   ScrollView,
   StyleSheet,
   Text,
   TextInput,
+  TouchableOpacity,
   View,
 } from 'react-native';
-import ButtonSave from './ButtonSave';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Dropdown} from 'react-native-element-dropdown';
 import Loading from './Loding';
 
-export default function InputQuote() {
-  const [data, setData] = useState('');
+export default function InputQuote({onSubmit}) {
+  // const [data, setData] = useState('');
   const textInputRef = useRef(null);
 
   const [isChecked, setIsChecked] = useState(false);
@@ -25,12 +24,22 @@ export default function InputQuote() {
   };
 
   const [loadingProduct, setLoadingProduct] = useState(true);
+
+  const [name, setName] = useState('');
+  const [phone, setPhone] = useState('');
+  const [email, setEmail] = useState('');
+  const [expDate, setExpDate] = useState('');
+  const [price, setPrice] = useState('');
+  const [discount, setDiscount] = useState('');
+  const [renmark, setRenmark] = useState('');
+
   const [value, setValue] = useState(null);
   const [product, setProduct] = useState([]);
 
   const getDataProduct = async () => {
     setLoadingProduct(true);
     const token = await AsyncStorage.getItem('@tokenLogin');
+    // console.log(token);
     fetch(`http://10.50.1.162:8000/api/v1/product-api`, {
       method: 'GET',
       headers: {
@@ -41,13 +50,38 @@ export default function InputQuote() {
       .then(response => response.json())
       .then(json => {
         setProduct(json.data);
+        console.log(json);
         setLoadingProduct(false);
       })
       .catch(err => console.log(err));
   };
 
+  const handleSubmit = () => {
+    const params = {
+      customer_id: 1,
+      name: name,
+      address: 'Surabaya',
+      email: email,
+      phone_number: phone,
+      product_id: value,
+      product_code: 'KMZ-WA88',
+      product_name: 'Steel Watch - Leather',
+      product_base_price: 10000000,
+      product_price: price,
+      product_pict_url: '-',
+      expired_at: expDate,
+      discount: discount,
+      renmark: renmark,
+      updated_by: 1,
+      gender: 'L',
+      city: '-',
+      phone_number_2: '-',
+    };
+    console.log(params);
+  };
+
   useEffect(() => {
-    LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
+    // LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
     getDataProduct();
   }, []);
 
@@ -61,10 +95,10 @@ export default function InputQuote() {
         <View style={style.container}>
           <TextInput
             ref={textInputRef}
-            value={data}
-            onChangeText={text => setData(text)}
             style={style.input}
             placeholder="Customer Name"
+            value={name}
+            onChangeText={value => setName(value)}
           />
         </View>
         <View style={style.container}>
@@ -72,7 +106,12 @@ export default function InputQuote() {
           <Text style={style.text}>Whatsapp?</Text>
         </View>
         <View style={style.container}>
-          <TextInput style={style.input} placeholder="0812345678xxx" />
+          <TextInput
+            style={style.input}
+            placeholder="0812345678xxx"
+            value={phone}
+            onChangeText={value => setPhone(value)}
+          />
           <CheckBox
             style={style.input}
             value={isChecked}
@@ -87,12 +126,14 @@ export default function InputQuote() {
           <TextInput
             style={style.input}
             placeholder="jhondoe@gmail.com"
-            // Tambahkan properti atau logika lain yang Anda butuhkan di sini
+            value={email}
+            onChangeText={value => setEmail(value)}
           />
           <TextInput
             style={style.input}
             placeholder="dd/mm/yyyy"
-            // Tambahkan properti atau logika lain yang Anda butuhkan di sini
+            value={expDate}
+            onChangeText={value => setExpDate(value)}
           />
         </View>
         <View style={style.container}>
@@ -121,12 +162,14 @@ export default function InputQuote() {
           <TextInput
             style={style.input}
             placeholder="Price Amount"
-            // Tambahkan properti atau logika lain yang Anda butuhkan di sini
+            value={price}
+            onChangeText={value => setPrice(value)}
           />
           <TextInput
             style={style.input}
             placeholder="Discount Amount"
-            // Tambahkan properti atau logika lain yang Anda butuhkan di sini
+            value={discount}
+            onChangeText={value => setDiscount(value)}
           />
         </View>
         <View style={style.container}>
@@ -135,13 +178,34 @@ export default function InputQuote() {
         <View style={style.container}>
           <TextInput
             ref={textInputRef}
-            value={data}
-            onChangeText={text => setData(text)}
             style={style.input}
-            // Tambahkan properti atau logika lain yang Anda butuhkan di sini
+            value={renmark}
+            onChangeText={value => setRenmark(value)}
           />
         </View>
-        <ButtonSave />
+        {/* <ButtonSave onPress={() => handleSubmit()} /> */}
+        <TouchableOpacity
+          // eslint-disable-next-line react-native/no-inline-styles
+          style={{
+            backgroundColor: '#E7E5E0',
+            paddingVertical: 10,
+            marginTop: 40,
+            marginBottom: 30,
+            borderRadius: 15,
+            elevation: 2,
+          }}
+          onPress={() => handleSubmit()}>
+          <Text
+            style={{
+              color: '#483729',
+              textAlign: 'center',
+              fontWeight: 'bold',
+              fontSize: 20,
+              letterSpacing: 2,
+            }}>
+            SEND
+          </Text>
+        </TouchableOpacity>
       </View>
     </ScrollView>
   );

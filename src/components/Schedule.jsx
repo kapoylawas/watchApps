@@ -54,6 +54,7 @@ const styles = StyleSheet.create({
     padding: 15,
     flexDirection: 'row', // Untuk mengatur teks dan gambar secara horizontal
     alignItems: 'center',
+    marginBottom: 7,
   },
   image: {
     color: 'white',

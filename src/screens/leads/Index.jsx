@@ -1,7 +1,8 @@
 /* eslint-disable react-native/no-inline-styles */
 import {useNavigation} from '@react-navigation/native';
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {
+  FlatList,
   Image,
   SafeAreaView,
   ScrollView,
@@ -12,6 +13,8 @@ import {
 } from 'react-native';
 import LeadsButton from '../../components/LeadsButton';
 import ButtonBackOption from '../../components/ButtonBackOption';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import Loading from '../../components/Loding';
 
 export default function LeadsScreen() {
   const navigation = useNavigation();
@@ -28,6 +31,31 @@ export default function LeadsScreen() {
   const goInWork = () => {
     navigation.navigate('InWork');
   };
+
+  const [loadingLead, setLoadingLead] = useState(true);
+  const [dataLead, setDataLead] = useState([]);
+  console.log('data lead =>', dataLead);
+
+  const getDataHome = async () => {
+    setLoadingLead(true);
+    const token = await AsyncStorage.getItem('@tokenLogin');
+    fetch(`http://10.50.1.162:8000/api/v1/lead`, {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        Authorization: 'Bearer ' + token,
+      },
+    })
+      .then(response => response.json())
+      .then(json => {
+        setDataLead(json.data);
+        setLoadingLead(false);
+      })
+      .catch(err => console.log(err));
+  };
+  useEffect(() => {
+    getDataHome();
+  }, []);
   return (
     <SafeAreaView
       style={{
@@ -105,245 +133,40 @@ export default function LeadsScreen() {
               <Text style={styles.dateText}>Today</Text>
             </View>
             {/* BUTTON TO PAGES LEADS */}
-            <TouchableOpacity onPress={goLeadsEdits}>
-              <View style={styles.container}>
-                <Image
-                  source={require('../../assets/watches-trader/icon/user.png')}
-                  style={{
-                    height: 40,
-                    width: 40,
-                    resizeMode: 'contain',
-                  }}
-                />
-                <View style={styles.textContainer}>
-                  <Text style={styles.nameText}>Ramzy</Text>
-                  <Text style={styles.subText} numberOfLines={1}>
-                    Saya minta daftar harga jam tipe ini dengan strap ini yasajd
-                    iajsd iajsd ajsdj asbdj ash jdh asjdh ds
-                  </Text>
-                </View>
-                <Text style={styles.subText}>14:20</Text>
-              </View>
-            </TouchableOpacity>
-            <View style={styles.container}>
-              <Image
-                source={require('../../assets/watches-trader/icon/user.png')}
-                style={{
-                  height: 40,
-                  width: 40,
-                  resizeMode: 'contain',
-                }}
+
+            {loadingLead ? (
+              <Loading />
+            ) : (
+              <FlatList
+                data={dataLead}
+                keyExtractor={item => item.id}
+                scrollEnabled={false}
+                renderItem={({item, index}) => (
+                  <TouchableOpacity onPress={goLeadsEdits}>
+                    <View style={styles.container}>
+                      <Image
+                        source={require('../../assets/watches-trader/icon/user.png')}
+                        style={{
+                          height: 40,
+                          width: 40,
+                          resizeMode: 'contain',
+                        }}
+                      />
+                      <View style={styles.textContainer}>
+                        <Text style={styles.nameText}>
+                          {item.customer_name}
+                        </Text>
+                        <Text style={styles.subText} numberOfLines={1}>
+                          Saya minta daftar harga jam tipe ini dengan strap ini
+                          yasajd iajsd iajsd ajsdj asbdj ash jdh asjdh ds
+                        </Text>
+                      </View>
+                      <Text style={styles.subText}>14:20</Text>
+                    </View>
+                  </TouchableOpacity>
+                )}
               />
-              <View style={styles.textContainer}>
-                <Text style={styles.nameText}>Ramzy</Text>
-                <Text style={styles.subText} numberOfLines={1}>
-                  Saya minta daftar harga jam tipe ini dengan strap ini yasajd
-                  iajsd iajsd ajsdj asbdj ash jdh asjdh ds
-                </Text>
-              </View>
-              <Text style={styles.subText}>14:20</Text>
-            </View>
-            <View style={styles.container}>
-              <Image
-                source={require('../../assets/watches-trader/icon/user.png')}
-                style={{
-                  height: 40,
-                  width: 40,
-                  resizeMode: 'contain',
-                }}
-              />
-              <View style={styles.textContainer}>
-                <Text style={styles.nameText}>Ramzy</Text>
-                <Text style={styles.subText} numberOfLines={1}>
-                  Saya minta daftar harga jam tipe ini dengan strap ini yasajd
-                  iajsd iajsd ajsdj asbdj ash jdh asjdh ds
-                </Text>
-              </View>
-              <Text style={styles.subText}>14:20</Text>
-            </View>
-            <View style={styles.container}>
-              <Image
-                source={require('../../assets/watches-trader/icon/user.png')}
-                style={{
-                  height: 40,
-                  width: 40,
-                  resizeMode: 'contain',
-                }}
-              />
-              <View style={styles.textContainer}>
-                <Text style={styles.nameText}>Ramzy</Text>
-                <Text style={styles.subText} numberOfLines={1}>
-                  Saya minta daftar harga jam tipe ini dengan strap ini yasajd
-                  iajsd iajsd ajsdj asbdj ash jdh asjdh ds
-                </Text>
-              </View>
-              <Text style={styles.subText}>14:20</Text>
-            </View>
-            <View style={styles.dateContainer}>
-              <Text style={styles.dateText}>Yesterday</Text>
-            </View>
-            <View style={styles.container}>
-              <Image
-                source={require('../../assets/watches-trader/icon/user.png')}
-                style={{
-                  height: 40,
-                  width: 40,
-                  resizeMode: 'contain',
-                }}
-              />
-              <View style={styles.textContainer}>
-                <Text style={styles.nameText}>Ramzy</Text>
-                <Text style={styles.subText} numberOfLines={1}>
-                  Saya minta daftar harga jam tipe ini dengan strap ini yasajd
-                  iajsd iajsd ajsdj asbdj ash jdh asjdh ds
-                </Text>
-              </View>
-              <Text style={styles.subText}>14:20</Text>
-            </View>
-            <View style={styles.container}>
-              <Image
-                source={require('../../assets/watches-trader/icon/user.png')}
-                style={{
-                  height: 40,
-                  width: 40,
-                  resizeMode: 'contain',
-                }}
-              />
-              <View style={styles.textContainer}>
-                <Text style={styles.nameText}>Ramzy</Text>
-                <Text style={styles.subText} numberOfLines={1}>
-                  Saya minta daftar harga jam tipe ini dengan strap ini yasajd
-                  iajsd iajsd ajsdj asbdj ash jdh asjdh ds
-                </Text>
-              </View>
-              <Text style={styles.subText}>14:20</Text>
-            </View>
-            <View style={styles.container}>
-              <Image
-                source={require('../../assets/watches-trader/icon/user.png')}
-                style={{
-                  height: 40,
-                  width: 40,
-                  resizeMode: 'contain',
-                }}
-              />
-              <View style={styles.textContainer}>
-                <Text style={styles.nameText}>Ramzy</Text>
-                <Text style={styles.subText} numberOfLines={1}>
-                  Saya minta daftar harga jam tipe ini dengan strap ini yasajd
-                  iajsd iajsd ajsdj asbdj ash jdh asjdh ds
-                </Text>
-              </View>
-              <Text style={styles.subText}>14:20</Text>
-            </View>
-            <View style={styles.container}>
-              <Image
-                source={require('../../assets/watches-trader/icon/user.png')}
-                style={{
-                  height: 40,
-                  width: 40,
-                  resizeMode: 'contain',
-                }}
-              />
-              <View style={styles.textContainer}>
-                <Text style={styles.nameText}>Ramzy</Text>
-                <Text style={styles.subText} numberOfLines={1}>
-                  Saya minta daftar harga jam tipe ini dengan strap ini yasajd
-                  iajsd iajsd ajsdj asbdj ash jdh asjdh ds
-                </Text>
-              </View>
-              <Text style={styles.subText}>14:20</Text>
-            </View>
-            <View style={styles.container}>
-              <Image
-                source={require('../../assets/watches-trader/icon/user.png')}
-                style={{
-                  height: 40,
-                  width: 40,
-                  resizeMode: 'contain',
-                }}
-              />
-              <View style={styles.textContainer}>
-                <Text style={styles.nameText}>Ramzy</Text>
-                <Text style={styles.subText} numberOfLines={1}>
-                  Saya minta daftar harga jam tipe ini dengan strap ini yasajd
-                  iajsd iajsd ajsdj asbdj ash jdh asjdh ds
-                </Text>
-              </View>
-              <Text style={styles.subText}>14:20</Text>
-            </View>
-            <View style={styles.container}>
-              <Image
-                source={require('../../assets/watches-trader/icon/user.png')}
-                style={{
-                  height: 40,
-                  width: 40,
-                  resizeMode: 'contain',
-                }}
-              />
-              <View style={styles.textContainer}>
-                <Text style={styles.nameText}>Ramzy</Text>
-                <Text style={styles.subText} numberOfLines={1}>
-                  Saya minta daftar harga jam tipe ini dengan strap ini yasajd
-                  iajsd iajsd ajsdj asbdj ash jdh asjdh ds
-                </Text>
-              </View>
-              <Text style={styles.subText}>14:20</Text>
-            </View>
-            <View style={styles.container}>
-              <Image
-                source={require('../../assets/watches-trader/icon/user.png')}
-                style={{
-                  height: 40,
-                  width: 40,
-                  resizeMode: 'contain',
-                }}
-              />
-              <View style={styles.textContainer}>
-                <Text style={styles.nameText}>Ramzy</Text>
-                <Text style={styles.subText} numberOfLines={1}>
-                  Saya minta daftar harga jam tipe ini dengan strap ini yasajd
-                  iajsd iajsd ajsdj asbdj ash jdh asjdh ds
-                </Text>
-              </View>
-              <Text style={styles.subText}>14:20</Text>
-            </View>
-            <View style={styles.container}>
-              <Image
-                source={require('../../assets/watches-trader/icon/user.png')}
-                style={{
-                  height: 40,
-                  width: 40,
-                  resizeMode: 'contain',
-                }}
-              />
-              <View style={styles.textContainer}>
-                <Text style={styles.nameText}>Ramzy</Text>
-                <Text style={styles.subText} numberOfLines={1}>
-                  Saya minta daftar harga jam tipe ini dengan strap ini yasajd
-                  iajsd iajsd ajsdj asbdj ash jdh asjdh ds
-                </Text>
-              </View>
-              <Text style={styles.subText}>14:20</Text>
-            </View>
-            <View style={styles.container}>
-              <Image
-                source={require('../../assets/watches-trader/icon/user.png')}
-                style={{
-                  height: 40,
-                  width: 40,
-                  resizeMode: 'contain',
-                }}
-              />
-              <View style={styles.textContainer}>
-                <Text style={styles.nameText}>Ramzy</Text>
-                <Text style={styles.subText} numberOfLines={1}>
-                  Saya minta daftar harga jam tipe ini dengan strap ini yasajd
-                  iajsd iajsd ajsdj asbdj ash jdh asjdh ds
-                </Text>
-              </View>
-              <Text style={styles.subText}>14:20</Text>
-            </View>
+            )}
           </View>
         </ScrollView>
       </View>
