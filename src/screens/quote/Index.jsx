@@ -2,11 +2,10 @@
 /* eslint-disable no-dupe-keys */
 /* eslint-disable react-native/no-inline-styles */
 import React, {useEffect, useRef, useState} from 'react';
-import {useNavigation} from '@react-navigation/native';
 import {
   Alert,
+  Button,
   Image,
-  SafeAreaView,
   StyleSheet,
   Text,
   TextInput,
@@ -18,6 +17,7 @@ import Loading from '../../components/Loding';
 import CheckBox from '@react-native-community/checkbox';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Dropdown} from 'react-native-element-dropdown';
+import DatePicker from 'react-native-date-picker';
 
 export default function QuoteScreen({navigation}) {
   // const [data, setData] = useState('');
@@ -34,7 +34,7 @@ export default function QuoteScreen({navigation}) {
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
   const [email, setEmail] = useState('');
-  const [expDate, setExpDate] = useState('');
+  const [expDate, setExpDate] = useState(new Date());
   const [price, setPrice] = useState('');
   const [discount, setDiscount] = useState('');
   const [renmark, setRenmark] = useState('');
@@ -43,9 +43,17 @@ export default function QuoteScreen({navigation}) {
   const [product, setProduct] = useState([]);
   const [productID, setProductID] = useState('');
   const kodeBarang = productID ? productID.kode_barang : 0;
-  console.log('id =>', value);
-  console.log('data =>', productID);
-  console.log(kodeBarang);
+
+  const tanggalAwal = expDate;
+  const dateAwal = new Date(tanggalAwal);
+
+  const tanggalAkhir = dateAwal.toLocaleString('sv-SE', {
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+  });
+
+  const [open, setOpen] = useState(false);
 
   const getDataProduct = async () => {
     setLoadingProduct(true);
@@ -108,7 +116,7 @@ export default function QuoteScreen({navigation}) {
         product_base_price: 221212,
         product_price: 12928928928,
         product_pict_url: 'testing',
-        expired_at: expDate,
+        expired_at: tanggalAkhir,
         price: price,
         discount: discount,
         remark: renmark,
@@ -211,11 +219,26 @@ export default function QuoteScreen({navigation}) {
               value={email}
               onChangeText={value => setEmail(value)}
             />
-            <TextInput
+            {/* <Text style={style.input}>{tanggalAkhir}</Text> */}
+            <Text style={style.inputText}> {tanggalAkhir} </Text>
+            <Button
               style={style.input}
-              placeholder="dd/mm/yyyy"
-              value={expDate}
-              onChangeText={value => setExpDate(value)}
+              title="Open"
+              onPress={() => setOpen(true)}
+            />
+            <DatePicker
+              modal
+              open={open}
+              date={expDate}
+              mode="date"
+              onConfirm={expDate => {
+                setOpen(false);
+                setExpDate(expDate);
+              }}
+              onCancel={() => {
+                setOpen(false);
+              }}
+              onDateChange={setExpDate}
             />
           </View>
           <View style={style.container}>
@@ -236,13 +259,13 @@ export default function QuoteScreen({navigation}) {
               value={value}
             />
           )}
-          <View>
+          {/* <View>
             {productID ? (
               <Text>Data: {productID.kode_barang}</Text>
             ) : (
               <Text>Kode Barang Tidak Ditemukan</Text>
             )}
-          </View>
+          </View> */}
           <View style={style.container}>
             <Text style={style.text}>Price</Text>
             <Text style={style.text}>Discount</Text>
@@ -325,5 +348,12 @@ const style = StyleSheet.create({
     // padding: 8,
     marginRight: 10,
     borderBottomWidth: 1,
+  },
+  inputText: {
+    flex: 1, // Menggunakan flex: 1 untuk memungkinkan input mengisi ruang yang tersedia
+    // padding: 8,
+    marginRight: 10,
+    borderBottomWidth: 1,
+    top: 13,
   },
 });
