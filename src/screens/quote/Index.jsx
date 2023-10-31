@@ -20,7 +20,6 @@ import {Dropdown} from 'react-native-element-dropdown';
 import DatePicker from 'react-native-date-picker';
 
 export default function QuoteScreen({navigation}) {
-  // const [data, setData] = useState('');
   const textInputRef = useRef(null);
 
   const [isChecked, setIsChecked] = useState(false);
@@ -42,7 +41,9 @@ export default function QuoteScreen({navigation}) {
   const [value, setValue] = useState('');
   const [product, setProduct] = useState([]);
   const [productID, setProductID] = useState('');
+  const [open, setOpen] = useState(false);
   const kodeBarang = productID ? productID.kode_barang : 0;
+  const namaBarang = productID ? productID.nama : 0;
 
   const tanggalAwal = expDate;
   const dateAwal = new Date(tanggalAwal);
@@ -53,7 +54,7 @@ export default function QuoteScreen({navigation}) {
     day: '2-digit',
   });
 
-  const [open, setOpen] = useState(false);
+  console.log('data product =>', product);
 
   const getDataProduct = async () => {
     setLoadingProduct(true);
@@ -68,14 +69,12 @@ export default function QuoteScreen({navigation}) {
       .then(response => response.json())
       .then(json => {
         setProduct(json.data);
-        // console.log(json.data);
         setLoadingProduct(false);
       })
       .catch(err => console.log(err));
   };
 
   const getDataProductByid = async () => {
-    // console.log(idProduct);
     const token = await AsyncStorage.getItem('@tokenLogin');
     fetch(
       `http://10.50.1.162:8000/api/v1/product-api?mode=id&value=${value}&page=1`,
@@ -89,7 +88,6 @@ export default function QuoteScreen({navigation}) {
     )
       .then(response => response.json())
       .then(json => {
-        // console.log(json.data);
         setProductID(json.data);
       })
       .catch(err => console.log(err));
@@ -112,7 +110,7 @@ export default function QuoteScreen({navigation}) {
         phone_number: phone,
         product_id: value,
         product_code: kodeBarang,
-        product_name: 'Steel Watch Leather',
+        product_name: namaBarang,
         product_base_price: 221212,
         product_price: 12928928928,
         product_pict_url: 'testing',
@@ -133,7 +131,7 @@ export default function QuoteScreen({navigation}) {
         if (json.success.code == 200) {
           // Berhasil
           Alert.alert('Data berhasil disubmit');
-          navigation.push('HomeScreen');
+          navigation.navigate('Leads');
         }
       })
       .catch(err => console.log(err));
@@ -219,7 +217,6 @@ export default function QuoteScreen({navigation}) {
               value={email}
               onChangeText={value => setEmail(value)}
             />
-            {/* <Text style={style.input}>{tanggalAkhir}</Text> */}
             <Text style={style.inputText}> {tanggalAkhir} </Text>
             <Button
               style={style.input}
@@ -259,13 +256,7 @@ export default function QuoteScreen({navigation}) {
               value={value}
             />
           )}
-          {/* <View>
-            {productID ? (
-              <Text>Data: {productID.kode_barang}</Text>
-            ) : (
-              <Text>Kode Barang Tidak Ditemukan</Text>
-            )}
-          </View> */}
+
           <View style={style.container}>
             <Text style={style.text}>Price</Text>
             <Text style={style.text}>Discount</Text>
@@ -295,7 +286,6 @@ export default function QuoteScreen({navigation}) {
               onChangeText={value => setRenmark(value)}
             />
           </View>
-          {/* <ButtonSave onPress={() => handleSubmit()} /> */}
           <TouchableOpacity
             // eslint-disable-next-line react-native/no-inline-styles
             style={{
