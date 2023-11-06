@@ -54,8 +54,6 @@ export default function QuoteScreen({navigation}) {
     day: '2-digit',
   });
 
-  console.log('data product =>', product);
-
   const getDataProduct = async () => {
     setLoadingProduct(true);
     const token = await AsyncStorage.getItem('@tokenLogin');
@@ -95,6 +93,7 @@ export default function QuoteScreen({navigation}) {
 
   const saveData = async () => {
     const token = await AsyncStorage.getItem('@tokenLogin');
+    const id = await AsyncStorage.getItem('@idLogin');
     await fetch('http://10.50.1.162:8000/api/v1/quotation', {
       method: 'POST',
       headers: {
@@ -103,7 +102,7 @@ export default function QuoteScreen({navigation}) {
         Authorization: 'Bearer ' + token,
       },
       body: JSON.stringify({
-        customer_id: 1,
+        customer_id: id,
         customer_name: name,
         address: 'Surabaya',
         email: email,
