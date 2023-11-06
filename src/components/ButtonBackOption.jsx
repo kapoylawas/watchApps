@@ -25,7 +25,7 @@ const ButtonBackOption = prop => {
         />
         <Text style={{fontWeight: 'bold'}}>Back</Text>
       </TouchableOpacity>
-      <TouchableOpacity onPress={() => navigation.toggleDrawer()}>
+      <TouchableOpacity>
         <Image
           source={require('../assets/watches-trader/icon/navbar.png')}
           style={{

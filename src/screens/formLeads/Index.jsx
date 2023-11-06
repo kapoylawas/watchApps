@@ -1,6 +1,7 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, {useState} from 'react';
 import {
+  Alert,
   Image,
   ScrollView,
   StyleSheet,
@@ -11,14 +12,68 @@ import {
 } from 'react-native';
 import ButtonBackLeads from '../../components/ButtonBackLeads';
 import {SelectList} from 'react-native-dropdown-select-list';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export default function FormLeadsScreen() {
+export default function FormLeadsScreen({navigation}) {
+  const [name, setName] = useState('');
+  const [phone, setPhone] = useState('');
+  const [inquiry, setInquiry] = useState('');
+  const [secondInquiry, setSecondInquiry] = useState('');
   const [selected, setSelected] = useState('');
-  const [inputValue, setInputValue] = useState('');
   const genders = [
-    {key: '1', value: 'Male'},
-    {key: '2', value: 'Female'},
+    {key: 'M', value: 'Male'},
+    {key: 'L', value: 'Female'},
   ];
+
+  const saveData = async () => {
+    const token = await AsyncStorage.getItem('@tokenLogin');
+    await fetch('http://10.50.1.162:8000/api/v1/lead', {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + token,
+      },
+      body: JSON.stringify({
+        customer_id: 1,
+        customer_name: name,
+        gender: selected,
+        address: 'Surabaya',
+        city: 'Surabaya',
+        email: 'ramzy@gmail.com',
+        phone_number: phone,
+        phone_number_2: '',
+        product_id: 1,
+        product_code: 'KMZ-WA88',
+        product_name: 'Steel Watch - Leather',
+        product_base_price: 10000000,
+        product_price: 15000000,
+        product_pict_url: '',
+        secondary_product_id: 2,
+        secondary_product_code: 'KMZ-WA8A',
+        secondary_product_name: 'Wooden Watch - Luxury',
+        secondary_product_base_price: 12500000,
+        secondary_product_price: 17500000,
+        secondary_product_pict_url: 'testing',
+        price: inquiry,
+        secondary_price: secondInquiry,
+        priority: 'N',
+        employee_id: '',
+        updated_by: 1,
+      }),
+    })
+      .then(response => response.json())
+      .then(json => {
+        console.log(json);
+        if (json.success.code == 200) {
+          // Berhasil
+          Alert.alert('Data berhasil disubmit');
+          navigation.navigate('Leads');
+        }
+      })
+      .catch(err => console.log(err));
+  };
+
   return (
     <View style={{flex: 1, backgroundColor: '#fff'}}>
       <ScrollView
@@ -65,8 +120,16 @@ export default function FormLeadsScreen() {
             <Text style={styles.text}>Phone Number</Text>
           </View>
           <View style={styles.containerInput}>
-            <TextInput style={styles.input} />
-            <TextInput style={styles.input} />
+            <TextInput
+              style={styles.input}
+              value={name}
+              onChangeText={value => setName(value)}
+            />
+            <TextInput
+              style={styles.input}
+              value={phone}
+              onChangeText={value => setPhone(value)}
+            />
           </View>
           {/* select dropdown */}
           <View style={styles.containerTextSelect}>
@@ -76,8 +139,8 @@ export default function FormLeadsScreen() {
             <SelectList
               setSelected={val => setSelected(val)}
               data={genders}
-              save="value"
-              defaultOption={{key: '1', value: 'Male'}}
+              save="key"
+              defaultOption={{key: 'M', value: 'Male'}}
             />
           </View>
           {/* inquiry */}
@@ -87,8 +150,8 @@ export default function FormLeadsScreen() {
           <View style={styles.containerInquiry}>
             <TextInput
               style={styles.inputInquiry}
-              onChangeText={text => setInputValue(text)}
-              value={inputValue}
+              onChangeText={value => setInquiry(value)}
+              value={inquiry}
             />
             <View style={styles.hide}>
               <Image
@@ -116,8 +179,8 @@ export default function FormLeadsScreen() {
           <View style={styles.containerInquiry}>
             <TextInput
               style={styles.inputInquiry}
-              onChangeText={text => setInputValue(text)}
-              value={inputValue}
+              onChangeText={value => setSecondInquiry(value)}
+              value={secondInquiry}
             />
             <View style={styles.hide}>
               <Image
@@ -225,7 +288,7 @@ export default function FormLeadsScreen() {
                 </Text>
               </View>
             </TouchableOpacity>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => saveData()}>
               <View
                 style={{
                   justifyContent: 'center',
