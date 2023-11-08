@@ -12,7 +12,10 @@ import {
 import ButtonBackOption from '../../components/ButtonBackOption';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-export default function LeadsEditScreen() {
+export default function LeadsEditScreen({route}) {
+  //destruct slug
+  const {id} = route.params;
+  console.log('data id =>', id);
   return (
     <SafeAreaView style={{backgroundColor: '#fff', flex: 1}}>
       <ScrollView showsVerticalScrollIndicator={false}>

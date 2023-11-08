@@ -15,6 +15,7 @@ import LeadsButton from '../../components/LeadsButton';
 import ButtonBackOption from '../../components/ButtonBackOption';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Loading from '../../components/Loding';
+import Api from '../../api/Api';
 
 export default function LeadsScreen() {
   const navigation = useNavigation();
@@ -32,27 +33,56 @@ export default function LeadsScreen() {
     navigation.navigate('InWork');
   };
 
-  const [loadingLead, setLoadingLead] = useState(true);
   const [dataLead, setDataLead] = useState([]);
-  console.log('data lead =>', dataLead);
+  const [nextPageURL, setNextPageURL] = useState(null);
+  const [loadingLead, setLoadingLead] = useState(true);
+  const [loadingLoadMore, setLoadingLoadMore] = useState(false);
+
+  // console.log(dataLead);
 
   const getDataHome = async () => {
+    //set loading true
     setLoadingLead(true);
     const token = await AsyncStorage.getItem('@tokenLogin');
-    fetch(`http://10.50.1.162:8000/api/v1/lead`, {
-      method: 'GET',
+    await Api.get('/lead', {
       headers: {
         Accept: 'application/json',
         Authorization: 'Bearer ' + token,
       },
-    })
-      .then(response => response.json())
-      .then(json => {
-        setDataLead(json.data);
-        setLoadingLead(false);
-      })
-      .catch(err => console.log(err));
+    }).then(response => {
+      //assign data to state
+      setDataLead(response.data.data);
+
+      // //assign nextPageURL to state
+      setNextPageURL(response.data.data.next_page_url);
+
+      //set loading false
+      setLoadingLead(false);
+    });
   };
+
+  //method getNextData
+  const getNextData = async () => {
+    //set loading true
+    setLoadingLoadMore(true);
+
+    if (nextPageURL != null) {
+      await Api.get(nextPageURL).then(response => {
+        //assign data to state
+        setDataLead([...dataLead, ...response.data.data]);
+
+        //assign nextPageURL to state
+        setNextPageURL(response.data.data.next_page_url);
+
+        //set loading false
+        setLoadingLoadMore(false);
+      });
+    } else {
+      // no data next page
+      setLoadingLoadMore(false);
+    }
+  };
+
   useEffect(() => {
     getDataHome();
   }, []);
@@ -137,35 +167,45 @@ export default function LeadsScreen() {
             {loadingLead ? (
               <Loading />
             ) : (
-              <FlatList
-                data={dataLead}
-                keyExtractor={item => item.id}
-                scrollEnabled={false}
-                renderItem={({item, index}) => (
-                  <TouchableOpacity onPress={goLeadsEdits}>
-                    <View style={styles.container}>
-                      <Image
-                        source={require('../../assets/watches-trader/icon/user.png')}
-                        style={{
-                          height: 40,
-                          width: 40,
-                          resizeMode: 'contain',
-                        }}
-                      />
-                      <View style={styles.textContainer}>
-                        <Text style={styles.nameText}>
-                          {item.customer_name}
-                        </Text>
-                        <Text style={styles.subText} numberOfLines={1}>
-                          Saya minta daftar harga jam tipe ini dengan strap ini
-                          yasajd iajsd iajsd ajsdj asbdj ash jdh asjdh ds
-                        </Text>
+              <>
+                <FlatList
+                  data={dataLead}
+                  keyExtractor={item => item.id}
+                  scrollEnabled={false}
+                  onEndReached={getNextData}
+                  onEndReachedThreshold={0.5}
+                  renderItem={({item, index}) => (
+                    <TouchableOpacity
+                      onPress={() =>
+                        navigation.navigate('LeadEdit', {
+                          id: item.id,
+                        })
+                      }>
+                      <View style={styles.container}>
+                        <Image
+                          source={require('../../assets/watches-trader/icon/user.png')}
+                          style={{
+                            height: 40,
+                            width: 40,
+                            resizeMode: 'contain',
+                          }}
+                        />
+                        <View style={styles.textContainer}>
+                          <Text style={styles.nameText}>
+                            {item.customer_name}
+                          </Text>
+                          <Text style={styles.subText} numberOfLines={1}>
+                            Saya minta daftar harga jam tipe ini dengan strap
+                            ini yasajd iajsd iajsd ajsdj asbdj ash jdh asjdh ds
+                          </Text>
+                        </View>
+                        <Text style={styles.subText}>14:20</Text>
                       </View>
-                      <Text style={styles.subText}>14:20</Text>
-                    </View>
-                  </TouchableOpacity>
-                )}
-              />
+                    </TouchableOpacity>
+                  )}
+                />
+                {loadingLoadMore ? <Loading /> : null}
+              </>
             )}
           </View>
         </ScrollView>
