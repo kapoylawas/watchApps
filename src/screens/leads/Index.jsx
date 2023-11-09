@@ -25,10 +25,6 @@ export default function LeadsScreen() {
     navigation.navigate('Home');
   };
 
-  const goLeadsEdits = () => {
-    navigation.navigate('LeadEdit');
-  };
-
   const goInWork = () => {
     navigation.navigate('InWork');
   };

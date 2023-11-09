@@ -12,12 +12,14 @@ import {SafeAreaView} from 'react-native';
 import ButtonBackOption from '../../components/ButtonBackOption';
 import {useNavigation} from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Loading from '../../components/Loding';
+import Api from '../../api/Api';
 
 export default function ContactScreen() {
   const [loadingContact, setLoadingContact] = useState(true);
   const [dataContact, setDataContact] = useState([]);
-
-  console.log('data contact =>', dataContact);
+  const [nextPageURL, setNextPageURL] = useState(null);
+  const [loadingLoadMore, setLoadingLoadMore] = useState(false);
 
   const navigation = useNavigation();
 
@@ -26,21 +28,46 @@ export default function ContactScreen() {
   };
 
   const getDataContact = async () => {
+    //set loading true
     setLoadingContact(true);
     const token = await AsyncStorage.getItem('@tokenLogin');
-    fetch(`http://10.50.1.162:8000/api/v1/customer`, {
-      method: 'GET',
+    await Api.get('/customer', {
       headers: {
         Accept: 'application/json',
         Authorization: 'Bearer ' + token,
       },
-    })
-      .then(response => response.json())
-      .then(json => {
-        setDataContact(json.data);
-        setLoadingContact(false);
-      })
-      .catch(err => console.log(err));
+    }).then(response => {
+      //assign data to state
+      setDataContact(response.data.data);
+
+      // //assign nextPageURL to state
+      setNextPageURL(response.data.data.next_page_url);
+
+      //set loading false
+      setLoadingContact(false);
+    });
+  };
+
+  //method getNextData
+  const getNextData = async () => {
+    //set loading true
+    setLoadingLoadMore(true);
+
+    if (nextPageURL != null) {
+      await Api.get(nextPageURL).then(response => {
+        //assign data to state
+        setDataContact([...dataContact, ...response.data.data]);
+
+        //assign nextPageURL to state
+        setNextPageURL(response.data.data.next_page_url);
+
+        //set loading false
+        setLoadingLoadMore(false);
+      });
+    } else {
+      // no data next page
+      setLoadingLoadMore(false);
+    }
   };
 
   useEffect(() => {
@@ -61,36 +88,50 @@ export default function ContactScreen() {
         <ButtonBackOption backTo={'Home'} />
       </View>
       <View style={{paddingBottom: 50, paddingTop: 20, paddingHorizontal: 25}}>
-        <FlatList
-          data={dataContact}
-          keyExtractor={item => item.id}
-          scrollEnabled={false}
-          renderItem={({item, index}) => (
-            <TouchableOpacity onPress={goContactDetails}>
-              <View style={styles.container}>
-                <View
-                  style={{
-                    backgroundColor: '#E7E5E0',
-                    padding: 5,
-                    elevation: 6,
-                    borderRadius: 100,
-                  }}>
-                  <Image
-                    source={require('../../assets/watches-trader/icon/user.png')}
-                    style={{
-                      height: 40,
-                      width: 40,
-                      resizeMode: 'contain',
-                    }}
-                  />
-                </View>
-                <View style={styles.textContainer}>
-                  <Text style={styles.nameText}>{item.fullname}</Text>
-                </View>
-              </View>
-            </TouchableOpacity>
-          )}
-        />
+        {loadingContact ? (
+          <Loading />
+        ) : (
+          <>
+            <FlatList
+              data={dataContact}
+              keyExtractor={item => item.id}
+              scrollEnabled={false}
+              onEndReached={getNextData}
+              onEndReachedThreshold={0.5}
+              renderItem={({item, index}) => (
+                <TouchableOpacity
+                  onPress={() =>
+                    navigation.navigate('ContactDetails', {
+                      id: item.id,
+                    })
+                  }>
+                  <View style={styles.container}>
+                    <View
+                      style={{
+                        backgroundColor: '#E7E5E0',
+                        padding: 5,
+                        elevation: 6,
+                        borderRadius: 100,
+                      }}>
+                      <Image
+                        source={require('../../assets/watches-trader/icon/user.png')}
+                        style={{
+                          height: 40,
+                          width: 40,
+                          resizeMode: 'contain',
+                        }}
+                      />
+                    </View>
+                    <View style={styles.textContainer}>
+                      <Text style={styles.nameText}>{item.fullname}</Text>
+                    </View>
+                  </View>
+                </TouchableOpacity>
+              )}
+            />
+            {loadingLoadMore ? <Loading /> : null}
+          </>
+        )}
       </View>
     </SafeAreaView>
   );

@@ -11,7 +11,10 @@ import {
 } from 'react-native';
 import ButtonBackOption from '../../components/ButtonBackOption';
 
-export default function ContactDetailsScreen() {
+export default function ContactDetailsScreen({route}) {
+  //destruct id
+  const {id} = route.params;
+  console.log('data id =>', id);
   return (
     <SafeAreaView
       style={{

@@ -13,7 +13,7 @@ import ButtonBackOption from '../../components/ButtonBackOption';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 export default function LeadsEditScreen({route}) {
-  //destruct slug
+  //destruct id
   const {id} = route.params;
   console.log('data id =>', id);
   return (
