@@ -1,5 +1,6 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react-native/no-inline-styles */
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   Image,
   SafeAreaView,
@@ -10,11 +11,41 @@ import {
   View,
 } from 'react-native';
 import ButtonBackOption from '../../components/ButtonBackOption';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import Api from '../../api/Api';
+import Loading from '../../components/Loding';
 
 export default function ContactDetailsScreen({route}) {
   //destruct id
   const {id} = route.params;
   console.log('data id =>', id);
+
+  const [loadingContact, setLoadingContact] = useState(true);
+  const [dataContact, setDataContact] = useState('');
+  console.log('detail contact', dataContact);
+
+  const getDataContact = async () => {
+    //set loading true
+    setLoadingContact(true);
+    const token = await AsyncStorage.getItem('@tokenLogin');
+    await Api.get(`/customer/${id}`, {
+      headers: {
+        Accept: 'application/json',
+        Authorization: 'Bearer ' + token,
+      },
+    }).then(response => {
+      //assign data to state
+      setDataContact(response.data.data);
+
+      //set loading false
+      setLoadingContact(false);
+    });
+  };
+
+  useEffect(() => {
+    getDataContact();
+  }, []);
+
   return (
     <SafeAreaView
       style={{
@@ -31,6 +62,7 @@ export default function ContactDetailsScreen({route}) {
           }}>
           <ButtonBackOption backTo={'Home'} />
         </View>
+
         <View style={styles.logoContainer}>
           <View
             style={{
@@ -44,7 +76,11 @@ export default function ContactDetailsScreen({route}) {
               style={styles.logo}
             />
           </View>
-          <Text style={styles.nameText}>Ramzy</Text>
+          {loadingContact ? (
+            <Loading />
+          ) : (
+            <Text style={styles.nameText}>{dataContact.fullname}</Text>
+          )}
           <View
             style={{
               flexDirection: 'row',
@@ -87,27 +123,38 @@ export default function ContactDetailsScreen({route}) {
             borderRadius: 10,
             elevation: 5,
           }}>
-          <Text
-            style={{
-              color: '#000',
-              left: 35,
-            }}>
-            0812123123123
-          </Text>
+          {loadingContact ? (
+            <Loading />
+          ) : (
+            <Text
+              style={{
+                color: '#000',
+                left: 35,
+              }}>
+              {dataContact.phone_number}
+            </Text>
+          )}
           <View style={styles.container}>
             <View style={styles.containerInput}>
               <View style={styles.garis} />
-              {/* <View style={styles.garis} /> */}
-              <Text style={{right: 50}}>ramzy@gmail.com</Text>
+              {loadingContact ? (
+                <Loading />
+              ) : (
+                <Text style={{right: 50}}>{dataContact.email}</Text>
+              )}
             </View>
           </View>
-          <Text
-            style={{
-              color: '#000',
-              left: 35,
-            }}>
-            0812123123123
-          </Text>
+          {loadingContact ? (
+            <Loading />
+          ) : (
+            <Text
+              style={{
+                color: '#000',
+                left: 35,
+              }}>
+              {dataContact.phone_number_2}
+            </Text>
+          )}
         </View>
         <View style={{paddingHorizontal: 20}}>
           <View style={styles.containerNoCard}>

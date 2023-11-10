@@ -3,6 +3,7 @@ import React, {useEffect, useState} from 'react';
 import {
   FlatList,
   Image,
+  ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -22,10 +23,6 @@ export default function ContactScreen() {
   const [loadingLoadMore, setLoadingLoadMore] = useState(false);
 
   const navigation = useNavigation();
-
-  const goContactDetails = () => {
-    navigation.navigate('ContactDetails');
-  };
 
   const getDataContact = async () => {
     //set loading true
@@ -80,31 +77,27 @@ export default function ContactScreen() {
         backgroundColor: '#fff',
         flex: 1,
       }}>
-      <View
-        style={{
-          paddingTop: 17,
-          paddingHorizontal: 15,
-        }}>
-        <ButtonBackOption backTo={'Home'} />
-      </View>
-      <View style={{paddingBottom: 50, paddingTop: 20, paddingHorizontal: 25}}>
-        {loadingContact ? (
-          <Loading />
-        ) : (
-          <>
-            <FlatList
-              data={dataContact}
-              keyExtractor={item => item.id}
-              scrollEnabled={false}
-              onEndReached={getNextData}
-              onEndReachedThreshold={0.5}
-              renderItem={({item, index}) => (
-                <TouchableOpacity
-                  onPress={() =>
-                    navigation.navigate('ContactDetails', {
-                      id: item.id,
-                    })
-                  }>
+      <ScrollView style={{padding: 15}}>
+        <View
+          style={{
+            paddingTop: 17,
+            paddingHorizontal: 15,
+          }}>
+          <ButtonBackOption backTo={'Home'} />
+        </View>
+        <View
+          style={{paddingBottom: 50, paddingTop: 20, paddingHorizontal: 25}}>
+          {loadingContact ? (
+            <Loading />
+          ) : (
+            <>
+              <FlatList
+                data={dataContact}
+                keyExtractor={item => item.id}
+                scrollEnabled={false}
+                onEndReached={getNextData}
+                onEndReachedThreshold={0.5}
+                renderItem={({item, index}) => (
                   <View style={styles.container}>
                     <View
                       style={{
@@ -113,26 +106,33 @@ export default function ContactScreen() {
                         elevation: 6,
                         borderRadius: 100,
                       }}>
-                      <Image
-                        source={require('../../assets/watches-trader/icon/user.png')}
-                        style={{
-                          height: 40,
-                          width: 40,
-                          resizeMode: 'contain',
-                        }}
-                      />
+                      <TouchableOpacity
+                        onPress={() =>
+                          navigation.navigate('ContactDetails', {
+                            id: item.id,
+                          })
+                        }>
+                        <Image
+                          source={require('../../assets/watches-trader/icon/user.png')}
+                          style={{
+                            height: 40,
+                            width: 40,
+                            resizeMode: 'contain',
+                          }}
+                        />
+                      </TouchableOpacity>
                     </View>
                     <View style={styles.textContainer}>
                       <Text style={styles.nameText}>{item.fullname}</Text>
                     </View>
                   </View>
-                </TouchableOpacity>
-              )}
-            />
-            {loadingLoadMore ? <Loading /> : null}
-          </>
-        )}
-      </View>
+                )}
+              />
+              {loadingLoadMore ? <Loading /> : null}
+            </>
+          )}
+        </View>
+      </ScrollView>
     </SafeAreaView>
   );
 }
