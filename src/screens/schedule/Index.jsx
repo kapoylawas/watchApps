@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/jsx-no-undef */
 /* eslint-disable react-native/no-inline-styles */
 import React, {useEffect, useState} from 'react';
@@ -12,10 +13,17 @@ import {
 } from 'react-native';
 import ButtonBackOption from '../../components/ButtonBackOption';
 import moment from 'moment';
+import Api from '../../api/Api';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import LinearGradient from 'react-native-linear-gradient';
+import Loading from '../../components/Loding';
 
 export default function ScheduleScreen() {
   const [selectedDate, setSelectedDate] = useState(moment());
   const [dates, setDates] = useState([]);
+  const [loadingDate, setLoadingDate] = useState(true);
+  const [dataDate, setDataDate] = useState([]);
+  console.log('secedule by date =>', dataDate);
 
   const tanggal = selectedDate;
   const dateAwal = new Date(tanggal);
@@ -41,6 +49,28 @@ export default function ScheduleScreen() {
   const handleDateClick = date => {
     setSelectedDate(date);
   };
+
+  const getDataContact = async () => {
+    //set loading true
+    setLoadingDate(true);
+    const token = await AsyncStorage.getItem('@tokenLogin');
+    await Api.get(`/schedule-on/${tanggalAkhir}`, {
+      headers: {
+        Accept: 'application/json',
+        Authorization: 'Bearer ' + token,
+      },
+    }).then(response => {
+      //assign data to state
+      setDataDate(response.data.data);
+
+      //set loading false
+      setLoadingDate(false);
+    });
+  };
+
+  useEffect(() => {
+    getDataContact();
+  }, [selectedDate]);
 
   return (
     <SafeAreaView
@@ -69,6 +99,49 @@ export default function ScheduleScreen() {
           </TouchableOpacity>
         ))}
       </View>
+      {loadingDate ? (
+        <Loading />
+      ) : dataDate.length > 0 ? (
+        <FlatList
+          data={dataDate}
+          keyExtractor={item => item.toString()}
+          renderItem={({item, index}) => (
+            <LinearGradient
+              colors={['#694C20']} // Warna gradient
+              style={styles.card}
+              useAngle={true}
+              angle={135}>
+              <View style={styles.rowItemCenter}>
+                <View style={styles.textContainer}>
+                  <Text style={styles.title}>
+                    <Text>Meet with </Text>
+                    <Text style={{fontWeight: 'bold'}}>asdasd</Text>
+                  </Text>
+                  <View style={styles.row}>
+                    <Image
+                      source={require('../../assets/watches-trader/icon/loc-1.png')}
+                      style={{
+                        height: 30,
+                        width: 30,
+                        resizeMode: 'contain',
+                        marginRight: 7,
+                      }}
+                    />
+                    <Text style={styles.subTitle}>
+                      Excelso - SUB A Yani {'\n'}5 September 2023 - 12:30
+                    </Text>
+                  </View>
+                </View>
+                <MaterialIcons name="launch" size={40} style={styles.image} />
+              </View>
+            </LinearGradient>
+          )}
+        />
+      ) : (
+        <View style={styles.container}>
+          <Text style={styles.text}>Data Tidak Di Temukan</Text>
+        </View>
+      )}
     </SafeAreaView>
   );
 }
@@ -89,5 +162,52 @@ const styles = StyleSheet.create({
   activeDate: {
     backgroundColor: '#8E6413',
     color: 'white',
+  },
+  card: {
+    borderRadius: 10,
+    padding: 15,
+    flexDirection: 'row', // Untuk mengatur teks dan gambar secara horizontal
+    alignItems: 'center',
+    marginBottom: 7,
+  },
+  image: {
+    color: 'white',
+    marginLeft: 5,
+  },
+  textContainer: {
+    flex: 1,
+  },
+  title: {
+    color: 'white', // Warna teks
+    fontSize: 18,
+    marginBottom: 15,
+  },
+  subTitle: {
+    marginTop: -3,
+    color: 'white',
+    marginBottom: 10,
+    width: 230,
+    lineHeight: 20,
+  },
+  row: {
+    flexDirection: 'row',
+  },
+  rowItemCenter: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  iconUser: {
+    marginRight: 10,
+    color: '#FFF',
+  },
+  containerKosong: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  text: {
+    marginTop: 5,
+    color: '#333333',
   },
 });

@@ -1,5 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, {Component} from 'react';
+import React, {Component, useState} from 'react';
 import {
   Image,
   View,
@@ -12,6 +12,7 @@ import {
 import Icon from 'react-native-vector-icons/FontAwesome';
 import ForgotPassword from '../../components/ForgotPassword';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Loading from '../../components/Loding';
 
 class Login extends Component {
   constructor(props) {
@@ -20,6 +21,7 @@ class Login extends Component {
       email: '',
       password: '',
       pesanErrors: [],
+      isLoading: false,
     };
   }
 
@@ -41,6 +43,7 @@ class Login extends Component {
   };
 
   prosesLogin = () => {
+    this.setState({isLoading: true});
     fetch('http://10.50.1.162:8000/api/v1/login', {
       method: 'POST',
       headers: {
@@ -54,6 +57,7 @@ class Login extends Component {
     })
       .then(response => response.json())
       .then(json => {
+        this.setState({isLoading: false});
         if (json.success.code == '200') {
           this.saveToken(json.success.data.token);
           this.saveId(json.success.data.id);
@@ -66,6 +70,7 @@ class Login extends Component {
   };
 
   render() {
+    const {isLoading} = this.state;
     return (
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={{flex: 1, backgroundColor: '#F3F2EF'}}>
@@ -164,10 +169,17 @@ class Login extends Component {
               elevation: 2,
             }}
             onPress={() => this.prosesLogin()}>
-            <Text
-              style={{color: '#fff', textAlign: 'center', letterSpacing: 2}}>
-              SIGN IN
-            </Text>
+            {isLoading ? (
+              <Text
+                style={{color: '#fff', textAlign: 'center', letterSpacing: 2}}>
+                LOADING
+              </Text>
+            ) : (
+              <Text
+                style={{color: '#fff', textAlign: 'center', letterSpacing: 2}}>
+                SIGN IN
+              </Text>
+            )}
           </TouchableOpacity>
           <ForgotPassword />
         </View>
