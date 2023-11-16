@@ -95,7 +95,9 @@ export default function ScheduleScreen() {
               styles.dateItem,
               moment(date).isSame(selectedDate, 'day') && styles.activeDate,
             ]}>
-            <Text>{moment(date).format('D')}</Text>
+            <Text>
+              {moment(date).format('D')} - {moment(date).format('Y')}
+            </Text>
           </TouchableOpacity>
         ))}
       </View>

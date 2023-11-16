@@ -1,5 +1,6 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react-native/no-inline-styles */
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   Image,
   SafeAreaView,
@@ -11,11 +12,41 @@ import {
 } from 'react-native';
 import ButtonBackOption from '../../components/ButtonBackOption';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import Api from '../../api/Api';
+import Loading from '../../components/Loding';
 
 export default function LeadsEditScreen({route}) {
   //destruct id
   const {id} = route.params;
   console.log('data id =>', id);
+
+  const [loadingLeads, setLoadingLeads] = useState(true);
+  const [dataLeads, setDataLeads] = useState('');
+  console.log('data leads details =>', dataLeads);
+
+  const getDataLeads = async () => {
+    //set loading true
+    setLoadingLeads(true);
+    const token = await AsyncStorage.getItem('@tokenLogin');
+    await Api.get(`/lead/${id}`, {
+      headers: {
+        Accept: 'application/json',
+        Authorization: 'Bearer ' + token,
+      },
+    }).then(response => {
+      //assign data to state
+      setDataLeads(response.data.data);
+
+      //set loading false
+      setLoadingLeads(false);
+    });
+  };
+
+  useEffect(() => {
+    getDataLeads();
+  }, []);
+
   return (
     <SafeAreaView style={{backgroundColor: '#fff', flex: 1}}>
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -47,7 +78,11 @@ export default function LeadsEditScreen({route}) {
                   marginRight: 5,
                   flex: 1,
                 }}>
-                Ramzy Ramzy Ramzy Ramzy Ramzy{' '}
+                {loadingLeads ? (
+                  <Loading />
+                ) : (
+                  <Text style={styles.text}>{dataLeads.customer_name}</Text>
+                )}{' '}
                 <Image
                   source={require('../../assets/watches-trader/icon/pencil.png')}
                   style={{
@@ -89,7 +124,9 @@ export default function LeadsEditScreen({route}) {
                     }}
                   />
                 </Text>
-                <Text style={styles.subText}> 0812345678xxx</Text>
+                <Text style={styles.subText}>
+                  {dataLeads.customer_phone_number}
+                </Text>
               </View>
               <View style={styles.container}>
                 <Text style={styles.text}>
@@ -106,12 +143,13 @@ export default function LeadsEditScreen({route}) {
                 </Text>
                 <Text style={styles.subText}>
                   {' '}
-                  GMT-MASTER II <Icon name={'check'} size={16} color="green" />
+                  {dataLeads.product_code}{' '}
+                  <Icon name={'check'} size={16} color="green" />
                 </Text>
               </View>
               <View style={styles.container}>
                 <Text style={styles.text}>Price</Text>
-                <Text style={styles.subText}> IDR 20.000.000</Text>
+                <Text style={styles.subText}>{dataLeads.price}</Text>
               </View>
               <View style={styles.container}>
                 <Text style={styles.text}>
@@ -128,7 +166,8 @@ export default function LeadsEditScreen({route}) {
                 </Text>
                 <Text style={styles.subText}>
                   {' '}
-                  Yacht-Master <Icon name={'close'} size={16} color="red" />
+                  {dataLeads.secondary_product_name}{' '}
+                  <Icon name={'close'} size={16} color="red" />
                 </Text>
               </View>
               <View style={styles.container}>
@@ -148,7 +187,7 @@ export default function LeadsEditScreen({route}) {
                     marginVertical: 10,
                   }}
                 />
-                <Text style={styles.subText}>SKU-123456</Text>
+                <Text style={styles.subText}>{dataLeads.product_code}</Text>
                 <View>
                   <Text style={styles.text}>Unworn</Text>
                 </View>
