@@ -102,7 +102,7 @@ export default function QuoteScreen({navigation}) {
         Authorization: 'Bearer ' + token,
       },
       body: JSON.stringify({
-        customer_id: id,
+        customer_id: 1,
         customer_name: name,
         address: 'Surabaya',
         email: email,

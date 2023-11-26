@@ -15,6 +15,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Api from '../../api/Api';
 import Loading from '../../components/Loding';
+import Modal from 'react-native-modal';
 
 export default function LeadsEditScreen({route}) {
   //destruct id
@@ -23,7 +24,8 @@ export default function LeadsEditScreen({route}) {
 
   const [loadingLeads, setLoadingLeads] = useState(true);
   const [dataLeads, setDataLeads] = useState('');
-  console.log('data leads details =>', dataLeads);
+  // console.log('data leads details =>', dataLeads);
+  const [modal, setModal] = useState(false);
 
   const getDataLeads = async () => {
     //set loading true
@@ -49,6 +51,30 @@ export default function LeadsEditScreen({route}) {
 
   return (
     <SafeAreaView style={{backgroundColor: '#fff', flex: 1}}>
+      {/* modal */}
+      <Modal isVisible={modal}>
+        <View
+          style={{
+            backgroundColor: '#E7E5E0',
+            paddingVertical: 20,
+            paddingHorizontal: 20,
+            borderRadius: 6,
+          }}>
+          <TouchableOpacity
+            style={{justifyContent: 'center', alignItems: 'flex-end'}}
+            onPress={() => setModal(false)}>
+            <Text style={{color: '#000'}}>X</Text>
+          </TouchableOpacity>
+          <View style={{justifyContent: 'center', alignItems: 'center'}}>
+            <Image
+              source={require('../../assets/watches-trader/logo/logo-black.png')}
+              style={{width: 60, height: 60}}
+            />
+          </View>
+          <Text>I am the modal content!</Text>
+        </View>
+      </Modal>
+      {/* isi halaman */}
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={{paddingTop: 17, paddingHorizontal: 15}}>
           <ButtonBackOption backTo={'Leads'} />
@@ -96,17 +122,19 @@ export default function LeadsEditScreen({route}) {
                 <Icon name={'mars'} size={16} color="#59b1d4" /> Male
               </Text>
             </View>
-            <View
-              style={{
-                backgroundColor: '#E7E5E0',
-                alignItems: 'center',
-                borderRadius: 10,
-                paddingHorizontal: 10,
-                paddingVertical: 10,
-                elevation: 4,
-              }}>
-              <Text style={styles.text}>Assign to</Text>
-            </View>
+            <TouchableOpacity onPress={() => setModal(true)}>
+              <View
+                style={{
+                  backgroundColor: '#E7E5E0',
+                  alignItems: 'center',
+                  borderRadius: 10,
+                  paddingHorizontal: 10,
+                  paddingVertical: 10,
+                  elevation: 4,
+                }}>
+                <Text style={styles.text}>Assign to</Text>
+              </View>
+            </TouchableOpacity>
           </View>
           {/* phone number */}
           <View style={styles.rowContent}>

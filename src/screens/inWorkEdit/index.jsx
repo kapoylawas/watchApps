@@ -1,20 +1,246 @@
 /* eslint-disable react-native/no-inline-styles */
-import React from 'react';
+import React, {useState} from 'react';
 import {
+  Alert,
+  Button,
   Image,
+  Keyboard,
   ScrollView,
   StyleSheet,
   Text,
+  TextInput,
   TouchableOpacity,
+  TouchableWithoutFeedback,
   View,
 } from 'react-native';
 import {SafeAreaView} from 'react-navigation';
 import ButtonBackOption from '../../components/ButtonBackOption';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import Modal from 'react-native-modal';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export default function InWorkEditScreen() {
+export default function InWorkEditScreen(navigation) {
+  const [modalVisible, setModalVisible] = useState(false);
+  const [inputText, setInputText] = useState('');
+
+  const handleOpenModal = () => {
+    setModalVisible(true);
+  };
+
+  const handleCloseModal = () => {
+    setModalVisible(false);
+  };
+
+  const handleInputChange = text => {
+    setInputText(text);
+  };
+
+  const handleSave = () => {
+    // Implement logic to save the input data
+    handleCloseModal();
+  };
+
+  const [modalJadwal, setModalJadwal] = useState(false);
+
+  const [modalSelector, setModalSelector] = useState(1);
+
+  const saveData = async () => {
+    const token = await AsyncStorage.getItem('@tokenLogin');
+    await fetch('http://10.50.1.162:8000/api/v1/schedule', {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + token,
+      },
+      body: JSON.stringify({
+        lead_id: 1,
+        location: 'Starbucks Gubeng',
+        location_detail: 'Jl Raya Gubeng',
+        meet_at: '2023-12-25 13:00:00',
+        remark: '-',
+        updated_by: '',
+      }),
+    })
+      .then(response => response.json())
+      .then(json => {
+        console.log(json);
+        if (json.success.code == 200) {
+          // Berhasil
+          Alert.alert('Data berhasil disubmit');
+          navigation.navigate('Leads');
+        }
+      })
+      .catch(err => console.log(err));
+  };
+
+  function renderModal() {
+    if (modalSelector == 1) {
+      return (
+        <ScrollView
+          contentContainerStyle={styles.scrollViewContainer}
+          keyboardShouldPersistTaps="handled">
+          <View style={{width: '88%'}}>
+            <TextInput
+              style={styles.textInputCs}
+              placeholderTextColor="white"
+              placeholder="Location"
+            />
+            <TextInput
+              style={styles.textInputCs}
+              placeholderTextColor="white"
+              placeholder="Time"
+            />
+            <TextInput
+              style={styles.textInputCs}
+              placeholderTextColor="white"
+              placeholder="Date"
+            />
+            <TextInput
+              style={styles.textInputCs}
+              placeholderTextColor="white"
+              placeholder="Renmark"
+            />
+            {/* Add other TextInput or content components as needed */}
+
+            <Button title="Save" onPress={() => saveData()} />
+          </View>
+        </ScrollView>
+      );
+    } else if (modalSelector == 2) {
+      return (
+        <View>
+          <Text>Modal 2</Text>
+        </View>
+      );
+    } else if (modalSelector == 3) {
+      return (
+        <View>
+          <Text>Modal 3</Text>
+        </View>
+      );
+    }
+  }
+
   return (
     <SafeAreaView style={{backgroundColor: '#fff', flex: 1}}>
+      {/* modal edit */}
+      <View
+        style={{
+          justifyContent: 'center',
+          alignItems: 'center',
+          borderRadius: 6,
+        }}>
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={modalVisible}
+          onRequestClose={handleCloseModal}>
+          <TouchableWithoutFeedback
+            onPress={Keyboard.dismiss}
+            accessible={false}>
+            <View style={styles.modalContainer}>
+              <View
+                style={{
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  marginBottom: '50',
+                }}>
+                <Image
+                  source={require('../../assets/watches-trader/logo/logo-black.png')}
+                  style={{width: 60, height: 60}}
+                />
+                <Text style={{color: 'white'}}>EXCELSO - SUB A YANI</Text>
+              </View>
+              <ScrollView
+                contentContainerStyle={styles.scrollViewContainer}
+                keyboardShouldPersistTaps="handled">
+                <View style={styles.formContainer}>
+                  <TextInput
+                    style={styles.textInput}
+                    placeholderTextColor="white"
+                    placeholder="Meet up Expense"
+                  />
+                  <TextInput
+                    style={styles.textInput}
+                    placeholderTextColor="white"
+                    placeholder="Ride Expense"
+                  />
+                </View>
+                <TextInput
+                  style={styles.textInputBawah}
+                  placeholderTextColor="white"
+                  placeholder="Total Expense"
+                  textAlign="center"
+                />
+                <TextInput
+                  style={styles.textInputCs}
+                  placeholderTextColor="white"
+                  placeholder="Customer Feedback"
+                  textAlign="center"
+                />
+                {/* Add other TextInput or content components as needed */}
+
+                <Button title="Save" onPress={handleSave} />
+              </ScrollView>
+            </View>
+          </TouchableWithoutFeedback>
+        </Modal>
+      </View>
+      {/* batas modal */}
+      {/* modal add secedule */}
+      <View style={{flex: 1}}>
+        <Modal
+          isVisible={modalJadwal}
+          onBackdropPress={() => setModalJadwal(false)}>
+          <View style={{flexDirection: 'row'}}>
+            <TouchableOpacity
+              style={{
+                backgroundColor: '#483729',
+                paddingVertical: 10,
+                paddingHorizontal: 36,
+                borderRadius: 6,
+                marginBottom: 3,
+              }}
+              onPress={() => setModalSelector(1)}>
+              <Text style={{color: 'white'}}>meet up</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={{
+                backgroundColor: '#483729',
+                paddingVertical: 10,
+                paddingHorizontal: 36,
+                borderRadius: 6,
+                marginBottom: 3,
+              }}
+              onPress={() => setModalSelector(2)}>
+              <Text style={{color: 'white'}}>Modal 1</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={{
+                backgroundColor: '#483729',
+                paddingVertical: 10,
+                paddingHorizontal: 36,
+                borderRadius: 6,
+                marginBottom: 3,
+              }}
+              onPress={() => setModalSelector(3)}>
+              <Text style={{color: 'white'}}>Modal 1</Text>
+            </TouchableOpacity>
+          </View>
+          <View
+            style={{
+              backgroundColor: '#483729',
+              // paddingVertical: 150,
+              // paddingHorizontal: 350,
+              borderRadius: 6,
+              flex: 1,
+            }}>
+            {renderModal()}
+          </View>
+        </Modal>
+      </View>
+      {/* batas modal add jadwal */}
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={{paddingTop: 17, paddingHorizontal: 15, marginBottom: 30}}>
           <ButtonBackOption backTo={'Leads'} />
@@ -232,7 +458,20 @@ export default function InWorkEditScreen() {
           <View style={styles.containerLast}>
             <View style={styles.row}>
               <View style={{width: 170, marginRight: 10}}>
-                <View style={styles.card2}></View>
+                <View style={styles.card2}>
+                  <TouchableOpacity onPress={() => handleOpenModal(true)}>
+                    <Image
+                      source={require('../../assets/watches-trader/icon/remark.png')}
+                      style={{
+                        height: 20,
+                        width: 20,
+                        resizeMode: 'contain',
+                        marginLeft: 135,
+                        marginTop: 40,
+                      }}
+                    />
+                  </TouchableOpacity>
+                </View>
                 <View style={styles.card1}>
                   <Text style={{fontWeight: 'bold', color: '#000'}}>
                     EXCELSO - SUB A Yani
@@ -251,7 +490,8 @@ export default function InWorkEditScreen() {
                     flexDirection: 'row',
                     paddingHorizontal: 10,
                     marginLeft: 30,
-                  }}>
+                  }}
+                  onPress={() => setModalJadwal(true)}>
                   <Image
                     source={require('../../assets/watches-trader/icon/add.png')}
                     style={{
@@ -305,6 +545,9 @@ const styles = StyleSheet.create({
   },
   container: {
     marginVertical: 10,
+    flexDirection: 'row', // Menggunakan flexDirection: 'row' untuk mengatur tata letak horizontal
+    justifyContent: 'space-between', // Menggunakan justifyContent: 'space-between' untuk menjaga jarak antara input
+    alignItems: 'center',
   },
   containerButton: {
     flexDirection: 'row',
@@ -324,7 +567,7 @@ const styles = StyleSheet.create({
     color: '#483729',
   },
   text: {
-    color: '#483729',
+    color: 'white',
     fontWeight: 'bold',
   },
   contentImage: {
@@ -414,5 +657,53 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: 0, // Mengatur posisi lingkaran bawah di bawah garis
     left: 220,
+  },
+  modalContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#483729', // Brown background color
+    padding: 20,
+    borderRadius: 6,
+  },
+  scrollViewContainer: {
+    flexGrow: 1,
+    // justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: '20',
+  },
+  formContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '90%',
+    marginBottom: 20,
+  },
+  textInput: {
+    height: 40,
+    borderColor: 'white',
+    // borderWidth: 1,
+    color: 'white',
+    // paddingHorizontal: 10,
+    borderBottomWidth: 1,
+    width: '48%', // Setengah dari lebar parent (container form)
+  },
+  textInputBawah: {
+    height: 40,
+    borderColor: 'white',
+    // borderWidth: 1,
+    color: 'white',
+    marginBottom: 20,
+    borderBottomWidth: 1,
+    width: '48%', // Setengah dari lebar parent (container form)
+  },
+  textInputCs: {
+    height: 40,
+    borderColor: 'white',
+    // borderWidth: 1,
+    color: 'white',
+    marginBottom: 20,
+    marginTop: 30,
+    borderBottomWidth: 1,
+    width: '88%', // Setengah dari lebar parent (container form)
   },
 });
