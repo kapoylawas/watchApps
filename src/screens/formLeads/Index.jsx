@@ -1,5 +1,7 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable no-undef */
 /* eslint-disable react-native/no-inline-styles */
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   Alert,
   Image,
@@ -13,6 +15,8 @@ import {
 import ButtonBackLeads from '../../components/ButtonBackLeads';
 import {SelectList} from 'react-native-dropdown-select-list';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Loading from '../../components/Loding';
+import {Dropdown} from 'react-native-element-dropdown';
 
 export default function FormLeadsScreen({navigation}) {
   const [name, setName] = useState('');
@@ -20,6 +24,9 @@ export default function FormLeadsScreen({navigation}) {
   const [inquiry, setInquiry] = useState('');
   const [secondInquiry, setSecondInquiry] = useState('');
   const [selected, setSelected] = useState('');
+  const [price, setPrice] = useState('');
+  const [price2, setPrice2] = useState('');
+  const [priority, setPriority] = useState('');
   const genders = [
     {key: 'M', value: 'Male'},
     {key: 'L', value: 'Female'},
@@ -43,21 +50,21 @@ export default function FormLeadsScreen({navigation}) {
         email: 'ramzy@gmail.com',
         phone_number: phone,
         phone_number_2: '',
-        product_id: 1,
-        product_code: 'KMZ-WA88',
-        product_name: 'Steel Watch - Leather',
-        product_base_price: 10000000,
+        product_id: value,
+        product_code: kodeBarang,
+        product_name: namaBarang,
+        product_base_price: price,
         product_price: 15000000,
         product_pict_url: '',
         secondary_product_id: 2,
-        secondary_product_code: 'KMZ-WA8A',
-        secondary_product_name: 'Wooden Watch - Luxury',
-        secondary_product_base_price: 12500000,
+        secondary_product_code: kodeBarang2,
+        secondary_product_name: namaBarang2,
+        secondary_product_base_price: price2,
         secondary_product_price: 17500000,
         secondary_product_pict_url: 'testing',
         price: inquiry,
         secondary_price: secondInquiry,
-        priority: 'N',
+        priority: priority,
         employee_id: '',
         updated_by: 1,
       }),
@@ -74,12 +81,86 @@ export default function FormLeadsScreen({navigation}) {
       .catch(err => console.log(err));
   };
 
+  const [loadingProduct, setLoadingProduct] = useState(true);
+  const [product, setProduct] = useState([]);
+  const [value, setValue] = useState('');
+  const [value2, setValue2] = useState('');
+  const [productID, setProductID] = useState('');
+  const kodeBarang = productID ? productID.kode_barang : 0;
+  const namaBarang = productID ? productID.nama : 0;
+
+  const [productID2, setProductID2] = useState('');
+  const kodeBarang2 = productID2 ? productID2.kode_barang : 0;
+  const namaBarang2 = productID2 ? productID2.nama : 0;
+
+  const getDataProduct = async () => {
+    setLoadingProduct(true);
+    const token = await AsyncStorage.getItem('@tokenLogin');
+    fetch(`http://10.50.1.162:8000/api/v1/product-api?mode=all&page=1`, {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        Authorization: 'Bearer ' + token,
+      },
+    })
+      .then(response => response.json())
+      .then(json => {
+        setProduct(json.data);
+        setLoadingProduct(false);
+      })
+      .catch(err => console.log(err));
+  };
+
+  const getDataProductByid = async () => {
+    const token = await AsyncStorage.getItem('@tokenLogin');
+    fetch(
+      `http://10.50.1.162:8000/api/v1/product-api?mode=id&value=${value}&page=1`,
+      {
+        method: 'GET',
+        headers: {
+          Accept: 'application/json',
+          Authorization: 'Bearer ' + token,
+        },
+      },
+    )
+      .then(response => response.json())
+      .then(json => {
+        setProductID(json.data);
+      })
+      .catch(err => console.log(err));
+  };
+
+  const getDataProductByid2 = async () => {
+    const token = await AsyncStorage.getItem('@tokenLogin');
+    fetch(
+      `http://10.50.1.162:8000/api/v1/product-api?mode=id&value=${value2}&page=1`,
+      {
+        method: 'GET',
+        headers: {
+          Accept: 'application/json',
+          Authorization: 'Bearer ' + token,
+        },
+      },
+    )
+      .then(response => response.json())
+      .then(json => {
+        setProductID2(json.data);
+      })
+      .catch(err => console.log(err));
+  };
+
+  useEffect(() => {
+    getDataProduct();
+    getDataProductByid();
+    getDataProductByid2();
+  }, [value, value2]);
+
   return (
-    <View style={{flex: 1, backgroundColor: '#fff'}}>
+    <View style={{backgroundColor: '#fff'}}>
       <ScrollView
         style={{paddingBottom: 100, marginBottom: 10}}
         showsVerticalScrollIndicator={false}>
-        <View style={{paddingTop: 17, paddingHorizontal: 15}}>
+        <View style={{flex: 1, paddingTop: 15, paddingHorizontal: 10}}>
           <ButtonBackLeads />
           {/* date cread and assign to */}
           <View style={styles.container}>
@@ -147,76 +228,72 @@ export default function FormLeadsScreen({navigation}) {
           <View style={styles.containerTextSelect}>
             <Text style={styles.text}>Inquiry</Text>
           </View>
-          <View style={styles.containerInquiry}>
-            <TextInput
-              style={styles.inputInquiry}
-              onChangeText={value => setInquiry(value)}
-              value={inquiry}
-            />
-            <View style={styles.hide}>
-              <Image
-                source={require('../../assets/watches-trader/icon/search.png')}
-                style={{
-                  height: 20,
-                  width: 20,
-                  resizeMode: 'contain',
-                  marginTop: 1,
+          <View style={styles.containerLebar}>
+            {loadingProduct ? (
+              <Loading />
+            ) : (
+              <Dropdown
+                data={product}
+                labelField="nama"
+                valueField="id"
+                search
+                placeholder="Pilih Product"
+                onChange={item => {
+                  setValue(item.id);
                 }}
+                value={value}
               />
-            </View>
+            )}
           </View>
           {/* price kosong */}
           <View style={styles.containerTextSelect}>
             <Text style={styles.text}>Price</Text>
           </View>
-          <View style={styles.containerTextSelect}>
-            <Text style={{marginLeft: 20, fontWeight: 'bold'}}>-</Text>
+          <View style={styles.containerInput}>
+            <TextInput
+              style={styles.input}
+              value={price}
+              onChangeText={value => setPrice(value)}
+            />
           </View>
           {/* 2nd inqury */}
           <View style={styles.containerTextSelect}>
             <Text style={styles.text}>2nd Inquiry</Text>
           </View>
-          <View style={styles.containerInquiry}>
-            <TextInput
-              style={styles.inputInquiry}
-              onChangeText={value => setSecondInquiry(value)}
-              value={secondInquiry}
-            />
-            <View style={styles.hide}>
-              <Image
-                source={require('../../assets/watches-trader/icon/search.png')}
-                style={{
-                  height: 20,
-                  width: 20,
-                  resizeMode: 'contain',
-                  marginTop: 1,
+          <View style={styles.containerLebar}>
+            {loadingProduct ? (
+              <Loading />
+            ) : (
+              <Dropdown
+                data={product}
+                labelField="nama"
+                valueField="id"
+                search
+                placeholder="Pilih Product"
+                onChange={item => {
+                  setValue2(item.id);
                 }}
+                value={value2}
               />
-            </View>
+            )}
           </View>
           {/* price and priority */}
           <View style={styles.containerInput}>
             <Text style={styles.text}>Price</Text>
             <Text style={styles.textPrioty}>Priority</Text>
           </View>
-          <View style={styles.containerTextSelect}>
-            <Text style={{marginLeft: 20, fontWeight: 'bold'}}>-</Text>
-            <View style={{marginRight: 20}}>
-              <Image
-                source={require('../../assets/watches-trader/icon/pencil.png')}
-                style={{
-                  height: 15,
-                  width: 15,
-                  resizeMode: 'contain',
-                }}
-              />
-            </View>
-          </View>
-          {/* action border */}
           <View style={styles.container}>
             <View style={styles.containerInput}>
-              <View style={styles.garis} />
-              <View style={styles.garis} />
+              <TextInput
+                style={styles.input}
+                value={price2}
+                onChangeText={value => setPrice2(value)}
+              />
+              <TextInput
+                style={styles.input}
+                value={priority}
+                onChangeText={value => setPriority(value)}
+              />
             </View>
           </View>
           <View style={styles.actionContainer}>
@@ -324,7 +401,7 @@ export default function FormLeadsScreen({navigation}) {
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    borderBottomWidth: 1,
+    borderBottomWidth: 15,
     borderColor: '#FFF',
     paddingVertical: 20,
   },
@@ -420,5 +497,10 @@ const styles = StyleSheet.create({
   textAssign: {
     color: '#483729',
     fontWeight: 'bold',
+  },
+  containerLebar: {
+    width: '100%',
+    paddingTop: 17,
+    paddingHorizontal: 17,
   },
 });

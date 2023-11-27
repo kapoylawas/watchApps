@@ -24,7 +24,8 @@ export default function LeadsEditScreen({route}) {
 
   const [loadingLeads, setLoadingLeads] = useState(true);
   const [dataLeads, setDataLeads] = useState('');
-  // console.log('data leads details =>', dataLeads);
+  const [dataCustomer, setDataCustumer] = useState('');
+  console.log('data customer details =>', dataCustomer);
   const [modal, setModal] = useState(false);
 
   const getDataLeads = async () => {
@@ -45,8 +46,27 @@ export default function LeadsEditScreen({route}) {
     });
   };
 
+  const getCustomer = async () => {
+    //set loading true
+    setLoadingLeads(true);
+    const token = await AsyncStorage.getItem('@tokenLogin');
+    await Api.get('/customer-api', {
+      headers: {
+        Accept: 'application/json',
+        Authorization: 'Bearer ' + token,
+      },
+    }).then(response => {
+      //assign data to state
+      setDataCustumer(response.data.data);
+
+      //set loading false
+      setLoadingLeads(false);
+    });
+  };
+
   useEffect(() => {
     getDataLeads();
+    getCustomer();
   }, []);
 
   return (
@@ -71,7 +91,16 @@ export default function LeadsEditScreen({route}) {
               style={{width: 60, height: 60}}
             />
           </View>
-          <Text>I am the modal content!</Text>
+          <ScrollView>
+            {dataCustomer.map((item, index) => (
+              <TouchableOpacity style={styles.containerMdl}>
+                <View style={styles.bulat}></View>
+                <View key={index}>
+                  <Text>{item.nama}</Text>
+                </View>
+              </TouchableOpacity>
+            ))}
+          </ScrollView>
         </View>
       </Modal>
       {/* isi halaman */}
@@ -373,5 +402,21 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     marginTop: 20,
     elevation: 5,
+  },
+  containerMdl: {
+    flexDirection: 'row',
+    borderBottomWidth: 1,
+    borderColor: '#000',
+    paddingVertical: 20,
+    marginLeft: 10,
+  },
+  bulat: {
+    width: 20,
+    height: 20,
+    borderRadius: 50,
+    backgroundColor: '#483729',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginRight: 10,
   },
 });
